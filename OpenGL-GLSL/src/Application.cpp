@@ -7,7 +7,7 @@ int main(void)
     GLFWwindow* window;
 
     /* Initialize the library */
-    if (!glfwInit())
+    if (!glfwInit() )
         return -1;
 
 
@@ -24,7 +24,7 @@ int main(void)
 
     if (glewInit() != GLEW_OK)
     {
-        std::cout << "Error!" << std::endl;
+        std::cout << "Error! \n" << std::endl;
     }
 
     float positions[] = {
