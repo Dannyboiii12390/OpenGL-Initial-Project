@@ -39,9 +39,9 @@ bld/
 # Ensure Git sees the full path
 !Dependencies/
 !Dependencies/GLEW/
-!Dependencies/GLEW/library/
-!Dependencies/GLEW/library/Release/
-!Dependencies/GLEW/library/Release/Win32/
+!Dependencies/GLEW/lib/
+!Dependencies/GLEW/lib/Release/
+!Dependencies/GLEW/lib/Release/Win32/
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
