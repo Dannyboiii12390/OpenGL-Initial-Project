@@ -85,7 +85,19 @@ static unsigned int CreateShader(const std::string& vertexShader, const std::str
 
     return program;
 }
+static void STATICDRAWpolygon(float* polygonVertices, unsigned int polygonVertexSize)
+{
+    unsigned int VBO, VAO; //VAO = Vertex Array Object, VBO = Vertex Buffer Object
+    glGenVertexArrays(1, &VAO);
+    glGenBuffers(1, &VBO);
 
+    glBindVertexArray(VAO);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, polygonVertexSize, polygonVertices, GL_STATIC_DRAW);
+
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+}
 int main(void)
 {
     GLFWwindow* window;
@@ -110,20 +122,45 @@ int main(void)
     {
         std::cout << "Error! \n" << std::endl;
     }
+    /*
+    //Square
+    float polygonVertices[] = {
+        // First triangle
+        -0.5f, -0.5f, 0.0f,  // Bottom-left
+         0.5f, -0.5f, 0.0f,  // Bottom-right
+         0.5f,  0.5f, 0.0f,  // Top-right
 
+         // Second triangle
+          0.5f,  0.5f, 0.0f,  // Top-right
+         -0.5f,  0.5f, 0.0f,  // Top-left
+         -0.5f, -0.5f, 0.0f   // Bottom-left
+
+    // Pentagon
+    float polygonVertices[] = {
+        //left triangle
+        0.0f,  1.0f, 0.0f,  // Top
+        -0.5f, -1.0f, 0.0f, // Bottom-left
+        -1.0, 0.0f, 0.0f, //top-left
+
+        // Middle Triangle
+        //0.0f,  1.0f, 0.0f,  // Top
+        //-0.5f, -1.0f, 0.0f, // Bottom-left
+        //0.5f, -1.0f, 0.0f,  // Bottom-right
+
+        // Right Triangle
+        0.0f,  1.0f, 0.0f,  // Top
+        0.5f, -1.0f, 0.0f,  // Bottom-right
+        1.0f,  0.0f, 0.0f,  // top right
+    };
+    */
 
     //create triangle
-    float positions[] = {
+    float polygonVertices[] = {
         -0.5f, -0.5f,
          0.0f,  0.5f,
          0.5f, -0.5f
-	};
-    unsigned int buffer;
-	glCreateBuffers(1, &buffer);    
-	glBindBuffer(GL_ARRAY_BUFFER, buffer);
-	glBufferData(GL_ARRAY_BUFFER, 6*sizeof(float), positions, GL_STATIC_DRAW);
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (const void*)0);
+    };
+    STATICDRAWpolygon(polygonVertices, sizeof(polygonVertices));
 
 	ShaderProgramSource source = parseShader("res/shaders/Basic.shader");
 	/*std::cout << "Vertex Shader: \n" << source.VertexSource << std::endl;
