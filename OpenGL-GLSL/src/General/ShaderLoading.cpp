@@ -11,11 +11,10 @@ Shader::Shader(const std::string filePath)
 	Shader s = parseShader(filePath);
     VertexSource = s.VertexSource;
     FragmentSource = s.FragmentSource;
-    Log("Vertex Shader: \n" << s.VertexSource);
-    Log("Fragment Shader: \n" << s.FragmentSource);
+    //Log("Vertex Shader: \n" << s.VertexSource);
+    //Log("Fragment Shader: \n" << s.FragmentSource);
 	ID = CreateShader(VertexSource, FragmentSource);
 }
-   
 Shader::Shader(const std::string VSource, const std::string FSource)
 {
 	VertexSource = VSource;

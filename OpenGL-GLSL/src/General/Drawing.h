@@ -16,5 +16,5 @@ class Drawing
 	static void drawGrid(float size, int divisions);
 	static void drawAxes(float size);*/
 
-	void staticPolygon(float* polygonVertices, unsigned int polygonVertexSize);
+	void staticPolygon(float* polygonVertices, unsigned int polygonVertexSize, int* indicies, unsigned int indSize);
 };

@@ -33,7 +33,9 @@ static int initOpenGL(GLFWwindow*& window)
     if (glewInit() != GLEW_OK)
     {
         Log("Error! \n");
+        return -1;
     }
+    return 1;
 }
 
 int main(void)
@@ -41,16 +43,21 @@ int main(void)
     GLFWwindow* window = nullptr;
 	if (initOpenGL(window) == -1) return -1;
 	Drawing draw;
+	Log("OpenGL Version: " << glGetString(GL_VERSION) << "\n");
 
 
-    //create triangle
-    float polygonVertices[] = {
+    float positions[] = {
         -0.5f, -0.5f,
-         0.0f,  0.5f,
-         0.5f, -0.5f
-    };
-    
-    draw.staticPolygon(polygonVertices, sizeof(polygonVertices));
+         0.5f,  -0.5f,
+         0.5f, 0.5f,
+         -0.5f, 0.5f,
+	};
+    int indices[] = {
+        0, 1, 2,
+        2, 3, 0
+	};
+
+    draw.staticPolygon(positions, sizeof(positions), indices, sizeof(indices));
 
 	Shader shader("res/shaders/Basic.shader");
 
@@ -63,13 +70,14 @@ int main(void)
         /* Render here */
         glClear(GL_COLOR_BUFFER_BIT);
 
-		glDrawArrays(GL_TRIANGLES, 0, 3);
+		GLCALL(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr));
 
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
 
         /* Poll for and process events */
         glfwPollEvents();
+        
     }
 
     shader.Delete();

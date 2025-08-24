@@ -4,7 +4,7 @@
 #include <GLFW/glfw3.h>
 
 
-void Drawing::staticPolygon(float* polygonVertices, unsigned int polygonVertexSize)
+void Drawing::staticPolygon(float* polygonVertices, unsigned int polygonVertexSize, int* indicies, unsigned int indSize)
 {
     unsigned int VBO, VAO; //VAO = Vertex Array Object, VBO = Vertex Buffer Object
     glGenVertexArrays(1, &VAO);
@@ -13,24 +13,22 @@ void Drawing::staticPolygon(float* polygonVertices, unsigned int polygonVertexSi
     glBindVertexArray(VAO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, polygonVertexSize, polygonVertices, GL_STATIC_DRAW);
-
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
+
+    unsigned int ibo;
+    glGenBuffers(1, &ibo);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indSize, indicies, GL_STATIC_DRAW);
 }
 
 /*
-    //Square
-    float polygonVertices[] = {
-        // First triangle
-        -0.5f, -0.5f, 0.0f,  // Bottom-left
-         0.5f, -0.5f, 0.0f,  // Bottom-right
-         0.5f,  0.5f, 0.0f,  // Top-right
-
-         // Second triangle
-          0.5f,  0.5f, 0.0f,  // Top-right
-         -0.5f,  0.5f, 0.0f,  // Top-left
-         -0.5f, -0.5f, 0.0f   // Bottom-left
-
+    //triangle
+    float positions[] = {
+        -0.5f, -0.5f,
+         0.0f,  0.5f,
+         0.5f, -0.5f
+    };
     // Pentagon
     float polygonVertices[] = {
         //left triangle
