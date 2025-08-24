@@ -6,7 +6,7 @@
 
 
 #ifdef ENG_DEBUG
-#define Log(x) std::cout << x << std::endl
+#define LOG(x) std::cout << x << std::endl
 #define ASSERT(x) if (!x) __debugbreak()
 
 #define GLCALL(x) GLClearError();\
@@ -14,9 +14,9 @@
 	ASSERT(GLLogCall(#x, __FILE__, __LINE__))
 
 #else
-#define Log(x)
-#define ASSERT(x)
-#define GLCALL(x)
+#define LOG(x)
+#define ASSERT(x) x
+#define GLCALL(x) x
 #endif
 
 
@@ -28,7 +28,7 @@ static bool GLLogCall(const char* function, const char* file, const int line)
 {
     while (GLenum error = glGetError())
     {
-        Log("[OpenGL Error: " << error << "]\n [Function: " << function << "]\n [File: " << file << "]\n [Line: " << line << "]");
+        LOG("[OpenGL Error: " << error << "]\n [Function: " << function << "]\n [File: " << file << "]\n [Line: " << line << "]");
         return false;
     }
     return true;

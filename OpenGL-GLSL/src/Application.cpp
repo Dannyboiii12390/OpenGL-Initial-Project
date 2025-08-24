@@ -32,7 +32,7 @@ static int initOpenGL(GLFWwindow*& window)
 
     if (glewInit() != GLEW_OK)
     {
-        Log("Error! \n");
+        LOG("Error! \n");
         return -1;
     }
     return 1;
@@ -43,7 +43,7 @@ int main(void)
     GLFWwindow* window = nullptr;
 	if (initOpenGL(window) == -1) return -1;
 	//Drawing draw;
-	Log("OpenGL Version: " << glGetString(GL_VERSION) << "\n");
+	LOG("OpenGL Version: " << glGetString(GL_VERSION) << "\n");
 
 
     float vertices[] = {

@@ -75,8 +75,8 @@ const int Shader::CompileShader(const unsigned int type, const std::string& sour
         glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &length);
         char* message = (char*)alloca(length * sizeof(char));
         glGetShaderInfoLog(shader, length, &length, message);
-        Log("Failed to compile " << (type == GL_VERTEX_SHADER ? "vertex" : "fragment") << "shader!");
-        Log(message);
+        LOG("Failed to compile " << (type == GL_VERTEX_SHADER ? "vertex" : "fragment") << "shader!");
+        LOG(message);
         glDeleteShader(shader);
         return 0;
     }
