@@ -5,8 +5,8 @@
 #include <sstream>
 #include <iostream>
 #include "General/ShaderLoading.h"
-#include "General/Drawing.h"
 #include "General/Macros.h"
+#include "shapes/Shape.h"
 
 const int WIDTH = 800;
 const int HEIGHT = 600;
@@ -42,26 +42,34 @@ int main(void)
 {
     GLFWwindow* window = nullptr;
 	if (initOpenGL(window) == -1) return -1;
-	Drawing draw;
+	//Drawing draw;
 	Log("OpenGL Version: " << glGetString(GL_VERSION) << "\n");
 
 
-    float positions[] = {
+    float vertices[] = {
         -0.5f, -0.5f,
          0.5f,  -0.5f,
          0.5f, 0.5f,
          -0.5f, 0.5f,
 	};
+    float triangleVertices[] = {
+        // x,     y
+        -1.0f, -1.0f,  // Bottom left
+         0.5f, -0.5f,  // Bottom right
+         0.0f,  0.5f   // Top center
+    };
     int indices[] = {
         0, 1, 2,
         2, 3, 0
 	};
+	float centre[] = { 0.0f, 0.0f, 0.0f };
+    
 
-    draw.staticPolygon(positions, sizeof(positions), indices, sizeof(indices));
+    Shader shader = Shader("res/shaders/Basic.shader");
+    Shader shader2 = Shader("res/shaders/BasicRed.shader");
 
-	Shader shader("res/shaders/Basic.shader");
-
-	shader.Bind();
+    Shape shape = Shape(centre, vertices, 8, indices, 6, &shader);
+	Shape shape2 = Shape(centre, triangleVertices, 6, indices, 3, &shader2);
 
 
     /* Loop until the user closes the window */
@@ -70,7 +78,9 @@ int main(void)
         /* Render here */
         glClear(GL_COLOR_BUFFER_BIT);
 
-		GLCALL(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr));
+		shape.draw();
+        shape2.draw();
+
 
         /* Swap front and back buffers */
         glfwSwapBuffers(window);

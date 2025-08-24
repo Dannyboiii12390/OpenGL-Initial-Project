@@ -21,21 +21,22 @@
     <ClCompile Include="src\General\ShaderLoading.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\General\Drawing.cpp">
+    <ClCompile Include="src\shapes\Shape.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\Basic.shader" />
+    <None Include="res\shaders\BasicRed.shader" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\General\ShaderLoading.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\General\Drawing.h">
+    <ClInclude Include="src\General\Macros.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\General\Macros.h">
+    <ClInclude Include="src\shapes\Shape.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

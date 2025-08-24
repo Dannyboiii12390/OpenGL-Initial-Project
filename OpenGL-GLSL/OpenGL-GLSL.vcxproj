@@ -135,17 +135,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\General\Drawing.cpp" />
     <ClCompile Include="src\General\ShaderLoading.cpp" />
     <ClCompile Include="src\Application.cpp" />
+    <ClCompile Include="src\shapes\Shape.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\Basic.shader" />
+    <None Include="res\shaders\BasicRed.shader" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\General\Drawing.h" />
     <ClInclude Include="src\General\ShaderLoading.h" />
     <ClInclude Include="src\General\Macros.h" />
+    <ClInclude Include="src\shapes\Shape.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

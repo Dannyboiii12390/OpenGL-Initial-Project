@@ -2,8 +2,6 @@
 #include <string>
 #include "Macros.h"
 
-
-
 class Shader
 {
 private: 
@@ -23,5 +21,4 @@ public:
     const void Unbind() const;
     const void Delete();
     
-
 };
