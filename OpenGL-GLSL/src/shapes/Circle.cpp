@@ -4,6 +4,7 @@
 #include <GLFW/glfw3.h>
 #include "../General/ShaderLoading.h"
 
+
 Circle::Circle(float* pPosition, Shader* pShader, float pRadius, int pSegments, bool pFill) : position(pPosition), radius(pRadius), segments(pSegments), fill(pFill), shader(pShader)
 {
 	generateVertices();
@@ -26,6 +27,12 @@ void Circle::generateVertices()
         vertices.push_back(x);
         vertices.push_back(y);
     }
+}
+void Circle::setColor(const float r, const float g, const float b)
+{
+	color[0] = r;
+	color[1] = g;
+	color[2] = b;
 }
 void Circle::setupBuffers()
 {

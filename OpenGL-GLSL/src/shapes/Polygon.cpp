@@ -50,3 +50,9 @@ void Polygon::setPosition(const float* pPosition)
 {
     std::memcpy(position, pPosition, 3* sizeof(float));
 }
+void Polygon::setColor(const float r, const float g, const float b)
+{
+	color[0] = r;
+	color[1] = g;
+	color[2] = b;
+}

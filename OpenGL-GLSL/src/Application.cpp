@@ -8,6 +8,8 @@
 #include "General/Macros.h"
 #include "shapes/Polygon.h"
 #include "shapes/Circle.h"
+#include <chrono>
+#include <fstream>
 
 const int WIDTH = 800;
 const int HEIGHT = 600;
@@ -72,10 +74,37 @@ int main(void)
     Polygon shape = Polygon(centre, vertices, 8, indices, 6, &shader);
     //Polygon shape2 = Polygon(centre, triangleVertices, 6, indices, 3, &shader2);
 	Circle circle = Circle(centre, &shader2, 1.0f, 100, false);
+    
+    //timer
+	using namespace std::chrono;
+    auto lastTime = high_resolution_clock::now();
+    int frames = 0;
+    float fps = 0.0f;
+    // Open file to write FPS
+    std::ofstream fpsFile("fps_log.txt");
+
+
 
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
     {
+
+        auto currentTime = high_resolution_clock::now();
+        float deltaTime = duration<float, std::chrono::seconds::period>(currentTime - lastTime).count();
+
+		frames++;
+        // Every second, update FPS
+        if (deltaTime >= 1.0f)
+        {
+            fps = frames / deltaTime;
+            frames = 0;
+            lastTime = currentTime;
+
+			fpsFile << "FPS: " << fps << "\n";
+            
+        }
+
+
         /* Render here */
         glClear(GL_COLOR_BUFFER_BIT);
 
@@ -89,6 +118,8 @@ int main(void)
 
         /* Poll for and process events */
         glfwPollEvents();
+
+
         
     }
 
@@ -96,5 +127,7 @@ int main(void)
 	shader2.Delete();
 
     glfwTerminate();
+	fpsFile << std::endl;
+    fpsFile.close();
     return 0;
 }

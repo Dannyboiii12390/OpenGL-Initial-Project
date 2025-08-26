@@ -27,6 +27,7 @@ public:
 	~Polygon();
 	void draw() const;
 	void setPosition(const float* pPosition);
+	void setColor(const float r, const float g, const float b);
 	void setShader(Shader* pShader)
 	{
 		shader = pShader;

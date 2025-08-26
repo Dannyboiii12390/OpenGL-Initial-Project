@@ -14,6 +14,7 @@ class Circle
 		uint VAO, VBO;
 		std::vector<float> vertices;
 		Shader* shader;
+		float color[3] = {1.0f, 1.0f, 1.0f};
 
 		void generateVertices();
 		void setupBuffers();
@@ -23,5 +24,6 @@ class Circle
 		Circle(float* pPosition, Shader* pShader, float pRadius = 1.0f, int pSegments = 100, bool pFill = true);
 		~Circle();
 		void draw() const;
+		void setColor(const float r, const float g, const float b);
 		
 };
