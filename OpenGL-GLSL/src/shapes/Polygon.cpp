@@ -2,11 +2,11 @@
 #pragma once
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include "Shape.h"
+#include "Polygon.h"
 #include <cstring>
 #include "../General/Macros.h"
 
-Shape::Shape(const float* pPosition, const float* pVertices, const unsigned int pVertexCount, const int* pIndices, const unsigned int pIndexCount, Shader* pShader) : 
+Polygon::Polygon(const float* pPosition, const float* pVertices, const uint pVertexCount, const int* pIndices, const uint pIndexCount, Shader* pShader) : 
     vertexCount(pVertexCount), indexCount(pIndexCount)
 {
     std::memcpy(position, pPosition, sizeof(float) * 3);
@@ -15,8 +15,8 @@ Shape::Shape(const float* pPosition, const float* pVertices, const unsigned int 
     vertices = new float[vertexCount];
     std::memcpy(vertices, pVertices, vertexSize);
 
-    indexSize = indexCount * sizeof(unsigned int);
-    indices = new unsigned int[indexCount];
+    indexSize = indexCount * sizeof(uint);
+    indices = new uint[indexCount];
     std::memcpy(indices, pIndices, indexSize);
 
 	shader = pShader;
@@ -26,8 +26,13 @@ Shape::Shape(const float* pPosition, const float* pVertices, const unsigned int 
     GLCALL(glGenBuffers(1, &IBO));
     
 }
+Polygon::~Polygon()
+{
+    glDeleteVertexArrays(1, &VAO);
+    glDeleteBuffers(1, &VBO);
+}
 
-void Shape::draw() const
+void Polygon::draw() const
 {
 	shader->Bind();
 
@@ -41,7 +46,7 @@ void Shape::draw() const
     GLCALL(glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexSize, indices, GL_STATIC_DRAW));
     GLCALL(glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, nullptr));
 }
-void Shape::setPosition(const float* pPosition)
+void Polygon::setPosition(const float* pPosition)
 {
     std::memcpy(position, pPosition, 3* sizeof(float));
 }

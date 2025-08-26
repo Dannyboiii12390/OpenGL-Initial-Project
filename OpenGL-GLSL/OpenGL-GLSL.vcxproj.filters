@@ -21,7 +21,10 @@
     <ClCompile Include="src\General\ShaderLoading.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\shapes\Shape.cpp">
+    <ClCompile Include="src\shapes\Polygon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\shapes\Circle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -36,7 +39,10 @@
     <ClInclude Include="src\General\Macros.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\shapes\Shape.h">
+    <ClInclude Include="src\shapes\Polygon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\shapes\Circle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

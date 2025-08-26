@@ -6,7 +6,8 @@
 #include <iostream>
 #include "General/ShaderLoading.h"
 #include "General/Macros.h"
-#include "shapes/Shape.h"
+#include "shapes/Polygon.h"
+#include "shapes/Circle.h"
 
 const int WIDTH = 800;
 const int HEIGHT = 600;
@@ -68,9 +69,9 @@ int main(void)
     Shader shader = Shader("res/shaders/Basic.shader");
     Shader shader2 = Shader("res/shaders/BasicRed.shader");
 
-    Shape shape = Shape(centre, vertices, 8, indices, 6, &shader);
-	Shape shape2 = Shape(centre, triangleVertices, 6, indices, 3, &shader2);
-
+    Polygon shape = Polygon(centre, vertices, 8, indices, 6, &shader);
+    //Polygon shape2 = Polygon(centre, triangleVertices, 6, indices, 3, &shader2);
+	Circle circle = Circle(centre, &shader2, 1.0f, 100, false);
 
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
@@ -79,7 +80,8 @@ int main(void)
         glClear(GL_COLOR_BUFFER_BIT);
 
 		shape.draw();
-        shape2.draw();
+        //shape2.draw();
+		circle.draw();
 
 
         /* Swap front and back buffers */
@@ -91,6 +93,7 @@ int main(void)
     }
 
     shader.Delete();
+	shader2.Delete();
 
     glfwTerminate();
     return 0;

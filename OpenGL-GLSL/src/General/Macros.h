@@ -19,6 +19,8 @@
 #define GLCALL(x) x
 #endif
 
+#define uint unsigned int
+
 
 static void GLClearError()
 {
