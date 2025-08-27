@@ -2,7 +2,7 @@
 #include "../General/ShaderLoading.h"
 #include "../General/Macros.h"
 
-class Polygon
+class Polygon final
 {
 private:
 	float position[3] = {}; // x, y, z coordinates

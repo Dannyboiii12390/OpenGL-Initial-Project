@@ -4,7 +4,7 @@
 #include "../General/ShaderLoading.h"
 
 
-class Circle
+class Circle final
 {
 	private: 
 		float* position;

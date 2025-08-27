@@ -88,7 +88,6 @@ int main(void)
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
     {
-
         auto currentTime = high_resolution_clock::now();
         float deltaTime = duration<float, std::chrono::seconds::period>(currentTime - lastTime).count();
 

@@ -2,7 +2,7 @@
 #include <string>
 #include "Macros.h"
 
-class Shader
+class Shader final
 {
 private: 
     const int CompileShader(const uint type, const std::string& source) const;
