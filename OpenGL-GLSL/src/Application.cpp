@@ -10,6 +10,8 @@
 #include "shapes/Circle.h"
 #include <chrono>
 #include <fstream>
+#include "entities/Entity.h"
+#include "entities/Components/ComponentPosition.h"
 
 const int WIDTH = 800;
 const int HEIGHT = 600;
@@ -67,6 +69,8 @@ int main(void)
 	};
 	float centre[] = { 0.0f, 0.0f, 0.0f };
     
+    Entity ent = Entity("Test", 1);
+	ent.addComponent(std::make_shared<ComponentPosition>(centre[0], centre[1], centre[2]));
 
     Shader shader = Shader("res/shaders/Basic.shader");
     Shader shader2 = Shader("res/shaders/BasicRed.shader");
@@ -82,8 +86,6 @@ int main(void)
     float fps = 0.0f;
     // Open file to write FPS
     std::ofstream fpsFile("fps_log.txt");
-
-
 
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
