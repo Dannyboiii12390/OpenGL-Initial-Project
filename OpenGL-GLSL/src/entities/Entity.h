@@ -25,6 +25,13 @@ public:
     
     const std::string& getName() const;
     const uint getComponentCount() const;
+
+    template<typename T>
+    std::shared_ptr<T> getComponent(uint compInd)
+    {
+        std::shared_ptr<T> ptr = std::dynamic_pointer_cast<T>(getComponent(compInd));
+        return ptr;
+    }
     
 
 

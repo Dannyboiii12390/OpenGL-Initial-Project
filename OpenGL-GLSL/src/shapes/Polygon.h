@@ -23,6 +23,9 @@ private:
 	Shader* shader; // Shader program
 	
 public:
+	//Polygon() = delete;
+	//ComponentPolygon(const float* pPosition, const float* pVertices, const uint pVertexCount, const int* pIndices, const uint pIndexCount, Shader* pShader);
+	//ComponentPolygon(const float* pPosition, const float* pVertices, const uint pVertexCount, const int* pIndices, const uint pIndexCount, Shader* pShader);
 	Polygon(const float* pPosition, const float* pVertices, const uint pVertexCount, const int* pIndices, const uint pIndexCount, Shader* pShader);
 	~Polygon();
 	void draw() const;

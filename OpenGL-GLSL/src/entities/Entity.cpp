@@ -56,4 +56,3 @@ const std::string& Entity::getName() const { return name; }
 const uint Entity::getComponentCount() const { return static_cast<uint>(components.size()); }
 
 
-

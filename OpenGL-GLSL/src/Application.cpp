@@ -12,6 +12,18 @@
 #include <fstream>
 #include "entities/Entity.h"
 #include "entities/Components/ComponentPosition.h"
+#include "entities/Components/ComponentPolygon.h"
+
+//todo 
+/*
+create circle component
+create velocity component
+create shape system
+create velocity system
+create entity manager
+create system manager
+create geometry component
+*/
 
 const int WIDTH = 800;
 const int HEIGHT = 600;
@@ -67,16 +79,24 @@ int main(void)
         0, 1, 2,
         2, 3, 0
 	};
+    int indices2[] = {
+        0, 1, 2
+    };
 	float centre[] = { 0.0f, 0.0f, 0.0f };
     
-    Entity ent = Entity("Test", 1);
+    Entity ent = Entity("Test", 2);
+	Entity ent2 = Entity("Test2", 2);
 	ent.addComponent(std::make_shared<ComponentPosition>(centre[0], centre[1], centre[2]));
+	ent2.addComponent(std::make_shared<ComponentPosition>(centre[0], centre[1], centre[2]));
 
     Shader shader = Shader("res/shaders/Basic.shader");
     Shader shader2 = Shader("res/shaders/BasicRed.shader");
 
-    Polygon shape = Polygon(centre, vertices, 8, indices, 6, &shader);
-    //Polygon shape2 = Polygon(centre, triangleVertices, 6, indices, 3, &shader2);
+	std::shared_ptr<ComponentPosition> pos = ent.getComponent<ComponentPosition>(0);
+    std::shared_ptr<ComponentPosition> pos2 = ent2.getComponent<ComponentPosition>(0);
+    
+	ent.addComponent(std::make_shared<ComponentPolygon>(pos->getPosition(), vertices, 8, indices, 6, &shader));
+	ent2.addComponent(std::make_shared<ComponentPolygon>(pos2->getPosition(), triangleVertices, 6, indices2, 3, &shader2));
 	Circle circle = Circle(centre, &shader2, 1.0f, 100, false);
     
     //timer
@@ -108,11 +128,16 @@ int main(void)
 
         /* Render here */
         glClear(GL_COLOR_BUFFER_BIT);
+     
+        std::shared_ptr<ComponentPolygon> s1 = ent.getComponent<ComponentPolygon>(1);
+		std::shared_ptr<ComponentPolygon> s2 = ent2.getComponent<ComponentPolygon>(1);
+#
+        s1->draw();
+		s2->draw();
 
-		shape.draw();
-        //shape2.draw();
 		circle.draw();
 
+        
 
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
