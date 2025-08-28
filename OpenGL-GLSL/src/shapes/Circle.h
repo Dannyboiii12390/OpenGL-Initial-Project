@@ -11,7 +11,7 @@ class Circle final
 		float radius;
 		int segments;
 		bool fill;
-		uint VAO, VBO;
+		unsigned int VAO, VBO;
 		std::vector<float> vertices;
 		Shader* shader;
 		float color[3] = {1.0f, 1.0f, 1.0f};

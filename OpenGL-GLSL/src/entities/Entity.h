@@ -12,22 +12,22 @@ private:
 	std::vector<std::shared_ptr<IComponent>> components;
 
 public:
-	Entity(const std::string& pName, uint componentsToReserve = 4);
+	Entity(const std::string& pName, unsigned int componentsToReserve = 4);
     
     void addComponent(std::shared_ptr<IComponent> component);
 
     void removeComponent(const std::shared_ptr<IComponent>& component);
     void removeComponent(const std::string& componentName);
-    void removeComponent(uint index);
+    void removeComponent(unsigned int index);
 
     std::shared_ptr<IComponent> getComponent(const std::string& componentName) const;
-    std::shared_ptr<IComponent> getComponent(uint index) const;
+    std::shared_ptr<IComponent> getComponent(unsigned int index) const;
     
     const std::string& getName() const;
-    const uint getComponentCount() const;
+    const unsigned int getComponentCount() const;
 
     template<typename T>
-    std::shared_ptr<T> getComponent(uint compInd)
+    std::shared_ptr<T> getComponent(unsigned int compInd)
     {
         std::shared_ptr<T> ptr = std::dynamic_pointer_cast<T>(getComponent(compInd));
         return ptr;

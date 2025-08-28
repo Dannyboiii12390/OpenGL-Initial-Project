@@ -2,7 +2,7 @@
 #include <string>
 #include "../General/Macros.h"
 
-Entity::Entity(const std::string& pName, const uint toReserve) : name(pName)
+Entity::Entity(const std::string& pName, const unsigned int toReserve) : name(pName)
 {
 	components.reserve(toReserve);
 }
@@ -28,7 +28,7 @@ void Entity::removeComponent(const std::string& componentName)
     }),
     components.end());
 }
-void Entity::removeComponent(const uint index)
+void Entity::removeComponent(const unsigned int index)
 {
     if (index < components.size())
     {
@@ -47,12 +47,12 @@ std::shared_ptr<IComponent> Entity::getComponent(const std::string& componentNam
     }
     return nullptr;
 }
-std::shared_ptr<IComponent> Entity::getComponent(const uint index) const
+std::shared_ptr<IComponent> Entity::getComponent(const unsigned int index) const
 {
 	return (index < components.size()) ? components[index] : nullptr;
 }
 
 const std::string& Entity::getName() const { return name; }
-const uint Entity::getComponentCount() const { return static_cast<uint>(components.size()); }
+const unsigned int Entity::getComponentCount() const { return static_cast<unsigned int>(components.size()); }
 
 

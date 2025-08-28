@@ -4,7 +4,7 @@
 #include <cstring>
 #include "../../General/Macros.h"
 
-ComponentPolygon::ComponentPolygon(float* pPosition, float* pVertices, uint pVertexCount, int* pIndices, uint pIndexCount, Shader* pShader) :
+ComponentPolygon::ComponentPolygon(float* pPosition, float* pVertices, unsigned int pVertexCount, int* pIndices, unsigned int pIndexCount, Shader* pShader) :
 	IComponent("Component Polygon"), vertexCount(pVertexCount), indexCount(pIndexCount)
 {
 
@@ -13,8 +13,8 @@ ComponentPolygon::ComponentPolygon(float* pPosition, float* pVertices, uint pVer
 	vertexSize = vertexCount * sizeof(float);
 	vertices = new float[vertexCount];
 	std::memcpy(vertices, pVertices, vertexSize);
-	indexSize = indexCount * sizeof(uint);
-	indices = new uint[indexCount];
+	indexSize = indexCount * sizeof(unsigned int);
+	indices = new unsigned int[indexCount];
 	std::memcpy(indices, pIndices, indexSize);
 	shader = pShader;
 	GLCALL(glGenVertexArrays(1, &VAO));
@@ -36,7 +36,7 @@ void ComponentPolygon::draw() const
 	shader->Bind();
 	GLCALL(glBindVertexArray(VAO));
 	GLCALL(glBindBuffer(GL_ARRAY_BUFFER, VBO));
-	for (uint i = 0; i < vertexCount / 2; i++)
+	for (unsigned int i = 0; i < vertexCount / 2; i++)
 	{
 		newVertices[i * 2] = vertices[i * 2] + position[0];
 		newVertices[i * 2 + 1] = vertices[i * 2 + 1] + position[1];

@@ -9,23 +9,23 @@ private:
 	float* position; // x, y, z coordinates
 	float color[3] = { 1.0f, 1.0f, 1.0f };
 
-	uint VAO; // Vertex Array Object
-	uint VBO; // Vertex Buffer Object
-	uint IBO; // Index Buffer Object
+	unsigned int VAO; // Vertex Array Object
+	unsigned int VBO; // Vertex Buffer Object
+	unsigned int IBO; // Index Buffer Object
 
 
 	float* vertices; // Vertex data
-	uint vertexCount; // Number of vertices
-	uint vertexSize; // Size of all vertices in bytes
-	uint* indices; // Index data
-	uint indexCount; // Number of indices
-	uint indexSize; // Size of all vertices in bytes
+	unsigned int vertexCount; // Number of vertices
+	unsigned int vertexSize; // Size of all vertices in bytes
+	unsigned int* indices; // Index data
+	unsigned int indexCount; // Number of indices
+	unsigned int indexSize; // Size of all vertices in bytes
 
 	float* newVertices = new float[vertexCount];
 
 	Shader* shader; // Shader program
 public:
-	ComponentPolygon(float* pPosition, float* pVertices, uint pVertexCount, int* pIndices, uint pIndexCount, Shader* pShader);
+	ComponentPolygon(float* pPosition, float* pVertices, unsigned int pVertexCount, int* pIndices, unsigned int pIndexCount, Shader* pShader);
 	~ComponentPolygon();
 	std::string getName() const override { return name; }
 	

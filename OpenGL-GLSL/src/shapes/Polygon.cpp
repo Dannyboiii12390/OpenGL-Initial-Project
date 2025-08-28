@@ -6,7 +6,7 @@
 #include <cstring>
 #include "../General/Macros.h"
 
-Polygon::Polygon(const float* pPosition, const float* pVertices, const uint pVertexCount, const int* pIndices, const uint pIndexCount, Shader* pShader) : 
+Polygon::Polygon(const float* pPosition, const float* pVertices, const unsigned int pVertexCount, const int* pIndices, const unsigned int pIndexCount, Shader* pShader) :
     vertexCount(pVertexCount), indexCount(pIndexCount)
 {
     std::memcpy(position, pPosition, sizeof(float) * 3);
@@ -15,8 +15,8 @@ Polygon::Polygon(const float* pPosition, const float* pVertices, const uint pVer
     vertices = new float[vertexCount];
     std::memcpy(vertices, pVertices, vertexSize);
 
-    indexSize = indexCount * sizeof(uint);
-    indices = new uint[indexCount];
+    indexSize = indexCount * sizeof(unsigned int);
+    indices = new unsigned int[indexCount];
     std::memcpy(indices, pIndices, indexSize);
 
 	shader = pShader;
