@@ -17,32 +17,9 @@ ComponentPolygon::ComponentPolygon(float* pPosition, float* pVertices, uint pVer
 	indices = new uint[indexCount];
 	std::memcpy(indices, pIndices, indexSize);
 	shader = pShader;
-
 	GLCALL(glGenVertexArrays(1, &VAO));
 	GLCALL(glGenBuffers(1, &VBO));
 	GLCALL(glGenBuffers(1, &IBO));
-
-	//this is the proper way to do it
-	//glGenVertexArrays(1, &VAO);
-	//glGenBuffers(1, &VBO);
-	//glGenBuffers(1, &IBO);
-
-	//glBindVertexArray(VAO);
-
-	//// Vertex buffer
-	//glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	//glBufferData(GL_ARRAY_BUFFER, vertexSize, vertices, GL_STATIC_DRAW);
-
-	//// Index buffer
-	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
-	//glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexSize, indices, GL_STATIC_DRAW);
-
-	//// Vertex attribute (2D position)
-	//glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
-	//glEnableVertexAttribArray(0);
-
-	//glBindVertexArray(0); // Unbind VAO
-
 	
 }
 ComponentPolygon::~ComponentPolygon()
@@ -54,7 +31,7 @@ ComponentPolygon::~ComponentPolygon()
 	delete[] indices;
 
 }
-void ComponentPolygon::draw() const // todo need to look at uniforms for position and color
+void ComponentPolygon::draw() const
 {
 	shader->Bind();
 	GLCALL(glBindVertexArray(VAO));
@@ -70,12 +47,6 @@ void ComponentPolygon::draw() const // todo need to look at uniforms for positio
 	GLCALL(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO));
 	GLCALL(glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexSize, indices, GL_STATIC_DRAW));
 	GLCALL(glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, nullptr));
-
-	//the proper way to do this is with uniforms
-	//shader->Bind();
-	//// Bind VAO and draw
-	//GLCALL(glBindVertexArray(VAO));
-	//GLCALL(glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, nullptr));
 }
 void ComponentPolygon::setPosition(const float x, const float y, const float z)
 {
