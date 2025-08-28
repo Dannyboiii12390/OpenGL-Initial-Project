@@ -4,10 +4,12 @@
 #include <cstring>
 #include "../../General/Macros.h"
 
-ComponentPolygon::ComponentPolygon(const float* pPosition, const float* pVertices, const uint pVertexCount, const int* pIndices, const uint pIndexCount, Shader* pShader) :
+ComponentPolygon::ComponentPolygon(float* pPosition, float* pVertices, uint pVertexCount, int* pIndices, uint pIndexCount, Shader* pShader) :
 	IComponent("Component Polygon"), vertexCount(pVertexCount), indexCount(pIndexCount)
 {
-	std::memcpy(position, pPosition, sizeof(float) * 3);
+
+	position = pPosition;
+	//std::memcpy(position, pPosition, sizeof(float) * 3);
 	vertexSize = vertexCount * sizeof(float);
 	vertices = new float[vertexCount];
 	std::memcpy(vertices, pVertices, vertexSize);
@@ -24,13 +26,22 @@ ComponentPolygon::~ComponentPolygon()
 {
 	glDeleteVertexArrays(1, &VAO);
 	glDeleteBuffers(1, &VBO);
+	delete[] newVertices;
+	delete[] vertices;
+	delete[] indices;
+
 }
 void ComponentPolygon::draw() const
 {
 	shader->Bind();
 	GLCALL(glBindVertexArray(VAO));
 	GLCALL(glBindBuffer(GL_ARRAY_BUFFER, VBO));
-	GLCALL(glBufferData(GL_ARRAY_BUFFER, vertexSize, vertices, GL_STATIC_DRAW));
+	for (uint i = 0; i < vertexCount / 2; i++)
+	{
+		newVertices[i * 2] = vertices[i * 2] + position[0];
+		newVertices[i * 2 + 1] = vertices[i * 2 + 1] + position[1];
+	}
+	GLCALL(glBufferData(GL_ARRAY_BUFFER, vertexSize, newVertices, GL_STATIC_DRAW));
 	GLCALL(glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0));
 	GLCALL(glEnableVertexAttribArray(0));
 	GLCALL(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO));

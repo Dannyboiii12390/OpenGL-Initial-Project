@@ -6,7 +6,7 @@ ComponentPosition::ComponentPosition(float x, float y, float z) : IComponent("Co
 	position[1] = y;
 	position[2] = z;
 }
-const float* ComponentPosition::getPosition() const {
+float* ComponentPosition::getPosition() {
 	return position;
 }
 const float& ComponentPosition::getX() const {

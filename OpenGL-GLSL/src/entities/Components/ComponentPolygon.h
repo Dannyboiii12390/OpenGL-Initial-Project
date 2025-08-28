@@ -6,7 +6,7 @@
 class ComponentPolygon : public IComponent
 {
 private:
-	float position[3] = {}; // x, y, z coordinates
+	float* position; // x, y, z coordinates
 	float color[3] = { 1.0f, 1.0f, 1.0f };
 
 	uint VAO; // Vertex Array Object
@@ -21,9 +21,11 @@ private:
 	uint indexCount; // Number of indices
 	uint indexSize; // Size of all vertices in bytes
 
+	float* newVertices = new float[vertexCount];
+
 	Shader* shader; // Shader program
 public:
-	ComponentPolygon(const float* pPosition, const float* pVertices, const uint pVertexCount, const int* pIndices, const uint pIndexCount, Shader* pShader);
+	ComponentPolygon(float* pPosition, float* pVertices, uint pVertexCount, int* pIndices, uint pIndexCount, Shader* pShader);
 	~ComponentPolygon();
 	std::string getName() const override { return name; }
 	
@@ -32,5 +34,6 @@ public:
 	void setPosition(const float x, const float y, const float z);
 	void setColor(const float r, const float g, const float b);
 	void setShader(Shader* pShader);
+	
 
 };	

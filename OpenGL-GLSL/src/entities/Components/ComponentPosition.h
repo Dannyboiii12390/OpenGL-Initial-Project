@@ -9,7 +9,7 @@ private:
 public:
 	ComponentPosition(float x = 0.0f, float y = 0.0f, float z = 0.0f);
 
-	const float* getPosition() const;
+	float* getPosition();
 	const float& getX() const;
 	const float& getY() const;
 	const float& getZ() const;

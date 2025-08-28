@@ -13,6 +13,7 @@
 #include "entities/Entity.h"
 #include "entities/Components/ComponentPosition.h"
 #include "entities/Components/ComponentPolygon.h"
+#include "entities/Components/ComponentVelocity.h"
 
 //todo 
 /*
@@ -97,6 +98,9 @@ int main(void)
     
 	ent.addComponent(std::make_shared<ComponentPolygon>(pos->getPosition(), vertices, 8, indices, 6, &shader));
 	ent2.addComponent(std::make_shared<ComponentPolygon>(pos2->getPosition(), triangleVertices, 6, indices2, 3, &shader2));
+	float deltaTime = 1.0f;
+    float* d = &deltaTime;
+	ent.addComponent(std::make_shared<ComponentVelocity>(0.001f, 0.0f, 0.0f)); //x left and right, y up and down, z zoom in and out
 	Circle circle = Circle(centre, &shader2, 1.0f, 100, false);
     
     //timer
@@ -110,14 +114,19 @@ int main(void)
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
     {
-        auto currentTime = high_resolution_clock::now();
-        float deltaTime = duration<float, std::chrono::seconds::period>(currentTime - lastTime).count();
+        glfwSwapInterval(1); // Enables V-Sync (1 = on, 0 = off)
 
+        auto currentTime = high_resolution_clock::now();
+        float dTime = duration<float, std::chrono::seconds::period>(currentTime - lastTime).count();
+
+        std::shared_ptr<ComponentVelocity> vel = ent.getComponent<ComponentVelocity>(2);
+		float* v = vel->getVelocity(deltaTime);
+		pos->setPosition(pos->getX() + v[0], pos->getY() + v[1], pos->getZ() + v[2]);
 		frames++;
         // Every second, update FPS
-        if (deltaTime >= 1.0f)
+        if (dTime >= 1.0f)
         {
-            fps = frames / deltaTime;
+            fps = frames / dTime;
             frames = 0;
             lastTime = currentTime;
 

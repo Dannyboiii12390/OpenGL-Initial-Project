@@ -139,6 +139,7 @@
   <ItemGroup>
     <ClCompile Include="src\entities\Components\ComponentPolygon.cpp" />
     <ClCompile Include="src\entities\Components\ComponentPosition.cpp" />
+    <ClCompile Include="src\entities\Components\ComponentVelocity.cpp" />
     <ClCompile Include="src\entities\Entity.cpp" />
     <ClCompile Include="src\General\ShaderLoading.cpp" />
     <ClCompile Include="src\Application.cpp" />
@@ -152,6 +153,7 @@
   <ItemGroup>
     <ClInclude Include="src\entities\Components\ComponentPosition.h" />
     <ClInclude Include="src\entities\Components\ComponentPolygon.h" />
+    <ClInclude Include="src\entities\Components\ComponentVelocity.h" />
     <ClInclude Include="src\entities\Components\IComponent.h" />
     <ClInclude Include="src\entities\Entity.h" />
     <ClInclude Include="src\General\ShaderLoading.h" />
