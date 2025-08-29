@@ -126,18 +126,6 @@ int main(void)
     Shader shader = Shader("res/shaders/Basic.shader");
     Shader shader2 = Shader("res/shaders/BasicRed.shader");
     
-	//entity-component-system
-    /*Entity ent = Entity("Test", 2);
-	Entity ent2 = Entity("Test2", 2);
-	ent.addComponent(std::make_shared<ComponentPosition>(centre[0], centre[1], centre[2]));
-	ent2.addComponent(std::make_shared<ComponentPosition>(centre[0], centre[1], centre[2]));
-
-	std::shared_ptr<ComponentPosition> pos = ent.getComponent<ComponentPosition>(0);
-    std::shared_ptr<ComponentPosition> pos2 = ent2.getComponent<ComponentPosition>(0);
-    
-	ent.addComponent(std::make_shared<ComponentPolygon>(pos->getPosition(), vertices, 8, indices, 6, &shader));
-	ent2.addComponent(std::make_shared<ComponentPolygon>(pos2->getPosition(), triangleVertices, 6, indices2, 3, &shader2));
-	ent.addComponent(std::make_shared<ComponentVelocity>(0.001f, 0.0f, 0.0f));*/ //x left and right, y up and down, z zoom in and out
 	
     Circle circle = Circle(centre, &shader, 0.25f, 100, true);
 
@@ -145,24 +133,13 @@ int main(void)
     while (!glfwWindowShouldClose(window))
     {
         glfwSwapInterval(1); // Enables V-Sync (1 = on, 0 = off)
-
-		//entity-component-system
-       /*std::shared_ptr<ComponentVelocity> vel = ent.getComponent<ComponentVelocity>(2);
-		float* v = vel->getVelocity(deltaTime);
-		pos->setPosition(pos->getX() + v[0], pos->getY() + v[1], pos->getZ() + v[2]);*/
         
 		glm::mat4 view = camera.GetViewMatrix();
 
 
         /* Render here */
         glClear(GL_COLOR_BUFFER_BIT);
-        
-		//entity-component-system
-        /*std::shared_ptr<ComponentPolygon> s1 = ent.getComponent<ComponentPolygon>(1);
-		std::shared_ptr<ComponentPolygon> s2 = ent2.getComponent<ComponentPolygon>(1);
-#
-        s1->draw();
-		s2->draw();*/
+       
 
 		circle.draw();
 

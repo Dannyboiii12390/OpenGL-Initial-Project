@@ -21,4 +21,6 @@ public:
     const void Unbind() const;
     const void Delete();
     
+    const void AddUniform4f(const std::string& name, float a, float b, float c, float d) const;
+    const void AddUniform3f(const std::string& name, float a, float b, float c) const;
 };

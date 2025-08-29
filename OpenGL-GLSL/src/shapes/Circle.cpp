@@ -51,15 +51,20 @@ void Circle::setupBuffers()
 }
 void Circle::draw() const
 {
-    shader->Bind();
 
+    float velocity = sin(glfwGetTime()) * 0.5f;
+    shader->AddUniform4f("u_Color", 0.2f, 0.3f, 0.8f, 1.0f);
+    shader->AddUniform3f("u_Translation", velocity, 0, 0);
+
+    shader->Bind();
     glBindVertexArray(VAO);
     if (!fill)
     {
         glDrawArrays(GL_LINE_LOOP, 0, segments);
-    } else // use GL_TRIANGLE_FAN for filled
-        {
+    }
+    else // use GL_TRIANGLE_FAN for filled
+    {
         glDrawArrays(GL_TRIANGLE_FAN, 0, segments);
-	}
+    }
     glBindVertexArray(0);
 }
