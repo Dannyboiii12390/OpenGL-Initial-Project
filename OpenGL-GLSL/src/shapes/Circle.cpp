@@ -10,7 +10,6 @@ Circle::Circle(float* pPosition, Shader* pShader, float pRadius, int pSegments, 
 {
 	generateVertices();
 	setupBuffers();
-	const std::string name = "u_Color";
    
 }
 Circle::~Circle()
