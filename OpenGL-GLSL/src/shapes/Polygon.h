@@ -1,5 +1,5 @@
 #pragma once
-#include "../General/ShaderLoading.h"
+#include "../General/Shader.h"
 #include "../General/Macros.h"
 
 class Polygon final

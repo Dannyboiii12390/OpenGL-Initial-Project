@@ -2,15 +2,17 @@
 #include <cmath>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include "../General/ShaderLoading.h"
+#include "../General/Shader.h"
+
 
 
 Circle::Circle(float* pPosition, Shader* pShader, float pRadius, int pSegments, bool pFill) : position(pPosition), radius(pRadius), segments(pSegments), fill(pFill), shader(pShader)
 {
 	generateVertices();
 	setupBuffers();
+	const std::string name = "u_Color";
+   
 }
-
 Circle::~Circle()
 {
 	glDeleteVertexArrays(1, &VAO);
@@ -54,6 +56,8 @@ void Circle::draw() const
 
     float velocity = sin(glfwGetTime()) * 0.5f;
     shader->AddUniform4f("u_Color", 0.2f, 0.3f, 0.8f, 1.0f);
+    
+    
     shader->AddUniform3f("u_Translation", velocity, 0, 0);
 
     shader->Bind();

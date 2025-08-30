@@ -4,7 +4,7 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
-#include "General/ShaderLoading.h"
+#include "General/Shader.h"
 #include "General/Macros.h"
 #include "shapes/Polygon.h"
 #include "shapes/Circle.h"

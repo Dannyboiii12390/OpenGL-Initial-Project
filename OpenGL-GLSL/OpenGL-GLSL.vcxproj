@@ -152,7 +152,7 @@
     <ClCompile Include="src\entities\Components\ComponentPosition.cpp" />
     <ClCompile Include="src\entities\Components\ComponentVelocity.cpp" />
     <ClCompile Include="src\entities\Entity.cpp" />
-    <ClCompile Include="src\General\ShaderLoading.cpp" />
+    <ClCompile Include="src\General\Shader.cpp" />
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\shapes\Circle.cpp" />
     <ClCompile Include="src\shapes\Polygon.cpp" />
@@ -168,7 +168,7 @@
     <ClInclude Include="src\entities\Components\ComponentVelocity.h" />
     <ClInclude Include="src\entities\Components\IComponent.h" />
     <ClInclude Include="src\entities\Entity.h" />
-    <ClInclude Include="src\General\ShaderLoading.h" />
+    <ClInclude Include="src\General\Shader.h" />
     <ClInclude Include="src\General\Macros.h" />
     <ClInclude Include="src\shapes\Circle.h" />
     <ClInclude Include="src\shapes\Polygon.h" />
