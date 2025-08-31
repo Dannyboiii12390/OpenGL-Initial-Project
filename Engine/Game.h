@@ -5,6 +5,7 @@
 #include <gtc/matrix_transform.hpp>
 #include <iostream>
 #include "Camera.h"
+#include "Shader.h"
 
 class Game
 {

@@ -109,16 +109,12 @@ const void Shader::Unbind() const
 const void Shader::Delete()
 {
     glDeleteProgram(ID);
-	// Note: After deleting the program, the ID is no longer valid. Consider setting ID to 0 if needed.
     ID = 0;
 }
 const void Shader::AddUniform4f(const std::string& name, float a, float b, float c, float d) const
 {
-    Bind();
     int location = glGetUniformLocation(ID, name.c_str());
     glUniform4f(location, a, b, c, d);
-    Unbind();
-
 }
 const void Shader::AddUniform3f(const std::string& name, float a, float b, float c) const
 {
