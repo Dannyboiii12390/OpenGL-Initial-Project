@@ -34,7 +34,7 @@ public:
 
     int getID() const;
 
-    Shader operator=(const Shader& other);
+    Shader operator=(const Shader& other) = delete;
 
 
     void AddUniform4f(const std::string& name, const float* values) const;
@@ -47,5 +47,5 @@ public:
     void AddUniform2i(const std::string& name, const int* values) const;
     void AddUniform1i(const std::string& name, const int* value) const;
 
-    void AddUniformMat4(const std::string& name, const glm::mat4& matrix) const;
+    void AddUniformMat4(const std::string& name, const float* matrix) const;
 };

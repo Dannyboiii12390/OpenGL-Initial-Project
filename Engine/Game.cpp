@@ -34,10 +34,6 @@ void Game::scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 }
 void Game::processInput(GLFWwindow* window)
 {
-    float currentFrame = glfwGetTime();
-    deltaTime = currentFrame - lastFrame;
-    lastFrame = currentFrame;
-
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
@@ -81,6 +77,7 @@ int Game::Start()
         std::cerr << "Failed to initialize GLEW\n";
         return -1;
     }
+    //glfwSwapInterval(1);
 
     glEnable(GL_DEPTH_TEST);
 
@@ -102,58 +99,36 @@ int Game::Start()
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
     glEnableVertexAttribArray(0);
 
-    const char* vertexShaderSource = R"(
-        #version 330 core
-        layout (location = 0) in vec3 aPos;
-        uniform mat4 view;
-        uniform mat4 projection;
-        void main() {
-            gl_Position = projection * view * vec4(aPos, 1.0);
-        }
-    )";
-
-    const char* fragmentShaderSource = R"(
-        #version 330 core
-        out vec4 FragColor;
-        void main() {
-            FragColor = vec4(1.0, 0.5, 0.2, 1.0);
-        }
-    )";
-
-    unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
-    unsigned int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-    shaderProgram = glCreateProgram();
-
-    glShaderSource(vertexShader, 1, &vertexShaderSource, nullptr);
-    glCompileShader(vertexShader);
-    glShaderSource(fragmentShader, 1, &fragmentShaderSource, nullptr);
-    glCompileShader(fragmentShader);
-
-    glAttachShader(shaderProgram, vertexShader);
-    glAttachShader(shaderProgram, fragmentShader);
-    glLinkProgram(shaderProgram);
-
-    glDeleteShader(vertexShader);
-    glDeleteShader(fragmentShader);
+    shader = std::make_unique<Shader>("Shaders/Basic.Shader");
+    return 0;
 }
-void Game::Run()
+void Game::Run(float pDeltaTime)
 {
     processInput(window);
+    deltaTime = pDeltaTime;
 
     glClearColor(0.1f, 0.1f, 0.15f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    glUseProgram(shaderProgram);
+    glUseProgram(shader->getID());
 
     glm::mat4 view = camera.GetViewMatrix();
     glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom),
         (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
 
-    GLuint viewLoc = glGetUniformLocation(shaderProgram, "view");
-    GLuint projLoc = glGetUniformLocation(shaderProgram, "projection");
+    //so the square moves
+    float color[] = { 0.0f, 0.2f, 0.9f };
+    static float position[] = { 0.0f, 0.0f, 0.0f };
+    float velocity[] = { 0.5f, 0.0f, 0.0f };
 
-    glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &view[0][0]);
-    glUniformMatrix4fv(projLoc, 1, GL_FALSE, &projection[0][0]);
+    position[0] += velocity[0] * deltaTime;
+    position[1] += velocity[1] * deltaTime;
+    position[2] += velocity[2] * deltaTime;
+
+    shader->AddUniformMat4("view", &view[0][0]);
+    shader->AddUniformMat4("projection", &projection[0][0]);
+    shader->AddUniform4f("u_Color", color);
+    shader->AddUniform3f("position", position);
 
     glBindVertexArray(VAO);
     glDrawArrays(GL_TRIANGLES, 0, 6);

@@ -49,10 +49,7 @@ Shader::~Shader()
         glDeleteProgram(ID);
     }
 }
-Shader::Shader()
-{
 
-}
 const unsigned int Shader::Create(const std::string& vertexShader, const std::string& fragmentShader) const
 {
     GLCALL(unsigned int program = glCreateProgram());
@@ -92,12 +89,6 @@ const int Shader::Compile(const unsigned int type, const std::string& source) co
     return shader;
 }
 
-Shader Shader::operator=(const Shader& s)
-{
-    return Shader(s.FilePath);
-}
-
-
 void Shader::Use() const
 {
     GLCALL(glUseProgram(ID));
@@ -122,7 +113,7 @@ void Shader::AddUniform4f(const std::string& name, const float* values) const
     GLCALL(int location = glGetUniformLocation(ID, name.c_str()));
     GLCALL(glUniform4f(location, values[0], values[1], values[2], values[3]));
 }
-    void Shader::AddUniform3f(const std::string& name, const float* values) const
+void Shader::AddUniform3f(const std::string& name, const float* values) const
     {
         GLCALL(int location = glGetUniformLocation(ID, name.c_str()));
         GLCALL(glUniform3f(location, values[0], values[1], values[2]));
@@ -159,8 +150,8 @@ void Shader::AddUniform1i(const std::string& name, const int* value) const
     GLCALL(glUniform1i(location, *value));
 }
 
-void Shader::AddUniformMat4(const std::string& name, const glm::mat4& matrix) const
+void Shader::AddUniformMat4(const std::string& name, const float* matrix) const
 {
     GLCALL(int location = glGetUniformLocation(ID, name.c_str()));
-    GLCALL(glUniformMatrix4fv(location, 4, GL_FALSE, glm::value_ptr(matrix)));
+    GLCALL(glUniformMatrix4fv(location, 1, GL_FALSE, matrix));
 }

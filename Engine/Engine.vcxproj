@@ -135,16 +135,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="General\Camera.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="General\Shader.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Camera.h" />
+    <ClInclude Include="General\Camera.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="Macros.h" />
-    <ClInclude Include="Shader.h" />
+    <ClInclude Include="General\Macros.h" />
+    <ClInclude Include="General\Shader.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\Basic.Shader" />

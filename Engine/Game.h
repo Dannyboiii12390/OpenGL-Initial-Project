@@ -4,8 +4,9 @@
 #include <glm.hpp>
 #include <gtc/matrix_transform.hpp>
 #include <iostream>
-#include "Camera.h"
-#include "Shader.h"
+#include "General/Camera.h"
+#include "General/Shader.h"
+#include <memory>
 
 class Game
 {
@@ -14,15 +15,17 @@ class Game
 
 	Camera camera;
 	GLFWwindow* window;
-	unsigned int shaderProgram;
+	//unsigned int shaderProgram;
+	std::unique_ptr<Shader> shader;
 
 	unsigned int VAO, VBO;
 
 	float lastX = SCR_WIDTH / 2.0f;
 	float lastY = SCR_HEIGHT / 2.0f;
 	bool firstMouse = true;
-	float deltaTime = 0.0f;
 	float lastFrame = 0.0f;
+
+	float deltaTime = 0.0f;
 
 	
 	static void framebuffer_size_callback(GLFWwindow* window, int width, int height);
@@ -42,7 +45,7 @@ public:
 	Game();	
 
 	int Start();
-	void Run();
+	void Run(float deltaTime);
 	void Cleanup();
 	GLFWwindow* GetWindow();
 
