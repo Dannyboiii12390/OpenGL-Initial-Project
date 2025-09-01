@@ -11,9 +11,6 @@ float getDeltaTime()
     lastTime = currentTime;
     return deltaTime;
 }
-
-
-
 int main()
 {
     Game game = Game();
