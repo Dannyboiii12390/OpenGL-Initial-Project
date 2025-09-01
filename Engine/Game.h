@@ -15,7 +15,6 @@ class Game
 
 	Camera camera;
 	GLFWwindow* window;
-	//unsigned int shaderProgram;
 	std::unique_ptr<Shader> shader;
 
 	unsigned int VAO, VBO;
@@ -27,16 +26,10 @@ class Game
 
 	float deltaTime = 0.0f;
 
-	
 	static void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 	static void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 	static void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 	void processInput(GLFWwindow* window);
-
-
-
-
-
 
 public: 
 
