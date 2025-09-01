@@ -6,6 +6,7 @@
 #include <iostream>
 #include "General/Camera.h"
 #include "General/Shader.h"
+#include "Scenes/GameScene.h"
 #include <memory>
 
 class Game
@@ -13,11 +14,10 @@ class Game
 	const unsigned int SCR_WIDTH = 800;
 	const unsigned int SCR_HEIGHT = 600;
 
-	Camera camera;
+	Camera* camera = nullptr;
 	GLFWwindow* window;
 	std::unique_ptr<Shader> shader;
-
-	unsigned int VAO, VBO;
+	GameScene scene;
 
 	float lastX = SCR_WIDTH / 2.0f;
 	float lastY = SCR_HEIGHT / 2.0f;
