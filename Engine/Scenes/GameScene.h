@@ -10,10 +10,14 @@ private:
 
     unsigned int VAO, VBO;
 
+    float originalVertices[18];
+    float position[3] = { 0.0f, 0.0f, 0.0f };
 
 public:
     void Init() override;
     void Update(const float deltaTime, GLFWwindow* window, const int w, const int h) override;
     void Render() override;
     void Shutdown() override;
+
+    
 };

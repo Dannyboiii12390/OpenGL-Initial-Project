@@ -143,6 +143,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="General\Shader.cpp" />
+    <ClCompile Include="Managers\SceneManager.cpp" />
     <ClCompile Include="Scenes\GameScene.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -150,6 +151,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="General\Macros.h" />
     <ClInclude Include="General\Shader.h" />
+    <ClInclude Include="Managers\SceneManager.h" />
     <ClInclude Include="Scenes\GameScene.h" />
     <ClInclude Include="Scenes\Scene.h" />
   </ItemGroup>

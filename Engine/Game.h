@@ -8,6 +8,7 @@
 #include "General/Shader.h"
 #include "Scenes/GameScene.h"
 #include <memory>
+#include "Managers/SceneManager.h"
 
 class Game
 {
@@ -15,9 +16,9 @@ class Game
 	const unsigned int SCR_HEIGHT = 600;
 
 	Camera* camera = nullptr;
-	GLFWwindow* window;
-	std::unique_ptr<Shader> shader;
-	GameScene scene;
+	GLFWwindow* window = nullptr;
+
+	SceneManager sceneManager;
 
 	float lastX = SCR_WIDTH / 2.0f;
 	float lastY = SCR_HEIGHT / 2.0f;

@@ -13,6 +13,11 @@ void GameScene::Init()
         -0.5f,  0.5f, -0.5f,
         -0.5f, -0.5f, -0.5f,
     };
+    for (int i = 0; i < 18; ++i)
+    {
+        originalVertices[i] = vertices[i];
+    };
+    
 
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
@@ -37,7 +42,6 @@ void GameScene::Update(const float deltaTime, GLFWwindow* window, const int w, c
 
     //so the square moves
     float color[] = { 0.0f, 0.2f, 0.9f };
-    static float position[] = { 0.0f, 0.0f, 0.0f };
     float velocity[] = { 0.5f, 0.0f, 0.0f };
 
     position[0] += velocity[0] * deltaTime;
@@ -58,7 +62,10 @@ void GameScene::Update(const float deltaTime, GLFWwindow* window, const int w, c
 void GameScene::Render() {}
 void GameScene::Shutdown()
 {
+    position[0] = 0.0f;
+    position[1] = 0.0f;
+    position[2] = 0.0f;
+
     glDeleteVertexArrays(1, &VAO);
     glDeleteBuffers(1, &VBO);
-    glfwTerminate();
 }

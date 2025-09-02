@@ -47,12 +47,10 @@ void Game::processInput(GLFWwindow* window)
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
         camera->ProcessKeyboard(RIGHT, deltaTime);
 }
-
 GLFWwindow* Game::GetWindow()
 {
     return window;
 }
-
 int Game::Start()
 {
     glfwInit();
@@ -83,27 +81,9 @@ int Game::Start()
 
     glEnable(GL_DEPTH_TEST);
 
-    scene.Init();
-    camera = scene.getCamera();
-    //// Simple triangle (1 face of cube)
-    //float vertices[] = {
-    //    -0.5f, -0.5f, -0.5f,
-    //     0.5f, -0.5f, -0.5f,
-    //     0.5f,  0.5f, -0.5f,
-    //     0.5f,  0.5f, -0.5f,
-    //    -0.5f,  0.5f, -0.5f,
-    //    -0.5f, -0.5f, -0.5f,
-    //};
+    sceneManager.addScene(std::make_unique<GameScene>());
+    camera = sceneManager.getCurrentCamera();
 
-    //glGenVertexArrays(1, &VAO);
-    //glGenBuffers(1, &VBO);
-    //glBindVertexArray(VAO);
-    //glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    //glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-    //glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
-    //glEnableVertexAttribArray(0);
-
-    //shader = std::make_unique<Shader>("Shaders/Basic.Shader");
     return 0;
 }
 void Game::Run(float pDeltaTime)
@@ -111,40 +91,15 @@ void Game::Run(float pDeltaTime)
     processInput(window);
     deltaTime = pDeltaTime;
 
-    scene.Update(deltaTime, window, SCR_WIDTH, SCR_HEIGHT);
-    //glClearColor(0.1f, 0.1f, 0.15f, 1.0f);
-    //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    //glUseProgram(shader->getID());
-    // 
-    //glm::mat4 view = camera.GetViewMatrix();
-    //glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom),
-    //    (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
-
-    ////so the square moves
-    //float color[] = { 0.0f, 0.2f, 0.9f };
-    //static float position[] = { 0.0f, 0.0f, 0.0f };
-    //float velocity[] = { 0.5f, 0.0f, 0.0f };
-
-    //position[0] += velocity[0] * deltaTime;
-    //position[1] += velocity[1] * deltaTime;
-    //position[2] += velocity[2] * deltaTime;
-
-    //shader->AddUniformMat4("view", &view[0][0]);
-    //shader->AddUniformMat4("projection", &projection[0][0]);
-    //shader->AddUniform4f("u_Color", color);
-    //shader->AddUniform3f("position", position);
-
-    //glBindVertexArray(VAO);
-    //glDrawArrays(GL_TRIANGLES, 0, 6);
-
-    //glfwSwapBuffers(window);
-    //glfwPollEvents();
+    sceneManager.update(deltaTime, window, SCR_WIDTH, SCR_HEIGHT); 
+    if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS)
+    {
+        sceneManager.addScene(std::make_unique<GameScene>());
+        camera = sceneManager.getCurrentCamera();
+    }
 }
 void Game::Cleanup()
 {
-    scene.Shutdown();
-   /* glDeleteVertexArrays(1, &VAO);
-    glDeleteBuffers(1, &VBO);
-    glfwTerminate();*/
+    sceneManager.shutdownAll();
+    glfwTerminate();
 }
