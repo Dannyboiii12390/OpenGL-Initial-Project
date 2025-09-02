@@ -10,7 +10,6 @@ private:
 
     unsigned int VAO, VBO;
 
-    float originalVertices[18];
     float position[3] = { 0.0f, 0.0f, 0.0f };
 
 public:

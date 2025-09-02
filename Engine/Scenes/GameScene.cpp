@@ -13,12 +13,7 @@ void GameScene::Init()
         -0.5f,  0.5f, -0.5f,
         -0.5f, -0.5f, -0.5f,
     };
-    for (int i = 0; i < 18; ++i)
-    {
-        originalVertices[i] = vertices[i];
-    };
     
-
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
     glBindVertexArray(VAO);

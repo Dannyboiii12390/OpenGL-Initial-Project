@@ -97,6 +97,11 @@ void Game::Run(float pDeltaTime)
         sceneManager.addScene(std::make_unique<GameScene>());
         camera = sceneManager.getCurrentCamera();
     }
+    if (glfwGetKey(window, GLFW_KEY_G) == GLFW_PRESS)
+    {
+        sceneManager.popScene();
+        camera = sceneManager.getCurrentCamera();
+    }
 }
 void Game::Cleanup()
 {

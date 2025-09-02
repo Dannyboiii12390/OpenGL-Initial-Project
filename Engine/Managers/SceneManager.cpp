@@ -17,6 +17,7 @@ void SceneManager::popScene()
 	{
 		sceneStack.top()->Shutdown();
 		sceneStack.pop();
+		sceneStack.top()->Init();
 	}
 }
 void SceneManager::update(float deltaTime, GLFWwindow* window, int w, int h)
