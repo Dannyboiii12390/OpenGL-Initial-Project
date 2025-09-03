@@ -13,7 +13,11 @@ void GameScene::Init()
         -0.5f,  0.5f, -0.5f,
         -0.5f, -0.5f, -0.5f,
     };
-    
+
+    // Add a ComponentPosition to the entity with initial position (0,0,0)
+    ent.AddComponent<ComponentPosition>(0.0f, 0.0f, 0.0f);
+    ent.AddComponent<ComponentVelocity>(0.5f, 0.0f, 0.0f);
+
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
     glBindVertexArray(VAO);
@@ -23,6 +27,26 @@ void GameScene::Init()
     glEnableVertexAttribArray(0);
 
     shader = std::make_unique<Shader>("Shaders/Basic.Shader");
+}
+void GameScene::Restart()
+{
+    // Simple triangle (1 face of cube)
+    float vertices[] = {
+        -0.5f, -0.5f, -0.5f,
+         0.5f, -0.5f, -0.5f,
+         0.5f,  0.5f, -0.5f,
+         0.5f,  0.5f, -0.5f,
+        -0.5f,  0.5f, -0.5f,
+        -0.5f, -0.5f, -0.5f,
+    };
+
+    glGenVertexArrays(1, &VAO);
+    glGenBuffers(1, &VBO);
+    glBindVertexArray(VAO);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
+    glEnableVertexAttribArray(0);
 }
 void GameScene::Update(const float deltaTime, GLFWwindow* window, const int w, const int h)
 {
@@ -37,7 +61,9 @@ void GameScene::Update(const float deltaTime, GLFWwindow* window, const int w, c
 
     //so the square moves
     float color[] = { 0.0f, 0.2f, 0.9f };
-    float velocity[] = { 0.5f, 0.0f, 0.0f };
+
+    float* position = ent.GetComponent<ComponentPosition>("Position")->getPosition();
+    float* velocity = ent.GetComponent<ComponentVelocity>("Velocity")->getVelocity();
 
     position[0] += velocity[0] * deltaTime;
     position[1] += velocity[1] * deltaTime;
@@ -54,13 +80,8 @@ void GameScene::Update(const float deltaTime, GLFWwindow* window, const int w, c
     glfwSwapBuffers(window);
     glfwPollEvents();
 }
-void GameScene::Render() {}
 void GameScene::Shutdown()
 {
-    position[0] = 0.0f;
-    position[1] = 0.0f;
-    position[2] = 0.0f;
-
     glDeleteVertexArrays(1, &VAO);
     glDeleteBuffers(1, &VBO);
 }

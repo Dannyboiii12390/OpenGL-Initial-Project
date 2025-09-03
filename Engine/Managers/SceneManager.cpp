@@ -3,9 +3,9 @@
 
 void SceneManager::addScene(std::unique_ptr<Scene> scene)
 {
-	if (!sceneStack.empty())
+	if (sceneStack.size())
 	{
-		sceneStack.top()->Shutdown();  // Clean up current scene
+		sceneStack.top()->Shutdown();
 	}
 	sceneStack.push(std::move(scene));
 	sceneStack.top()->Init();
@@ -13,30 +13,23 @@ void SceneManager::addScene(std::unique_ptr<Scene> scene)
 }
 void SceneManager::popScene()
 {
-	if (!sceneStack.empty())
+	if (sceneStack.size()-1) // ensure always one scene on the stack
 	{
 		sceneStack.top()->Shutdown();
 		sceneStack.pop();
-		sceneStack.top()->Init();
+		sceneStack.top()->Restart();
 	}
 }
 void SceneManager::update(float deltaTime, GLFWwindow* window, int w, int h)
 {
-	if (!sceneStack.empty())
+	if (sceneStack.size())
 	{
 		sceneStack.top()->Update(deltaTime, window, w, h);
 	}
 }
-void SceneManager::render()
-{
-	if (!sceneStack.empty())
-	{
-		sceneStack.top()->Render();
-	}
-}
 Camera* SceneManager::getCurrentCamera()
 {
-	if (!sceneStack.empty())
+	if (sceneStack.size())
 	{
 		return sceneStack.top()->getCamera();
 	}
@@ -44,7 +37,7 @@ Camera* SceneManager::getCurrentCamera()
 }
 void SceneManager::shutdownAll()
 {
-	while (!sceneStack.empty())
+	while (sceneStack.size())
 	{
 		sceneStack.top()->Shutdown();
 		sceneStack.pop();

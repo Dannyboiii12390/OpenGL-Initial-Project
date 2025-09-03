@@ -11,7 +11,6 @@ public:
 	void addScene(std::unique_ptr<Scene> scene);
 	void popScene();
 	void update(float deltaTime, GLFWwindow* window, int w, int h);
-	void render();
 	Camera* getCurrentCamera();
 	void shutdownAll();
 };
