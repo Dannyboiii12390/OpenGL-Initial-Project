@@ -1,6 +1,34 @@
 #include "Game.h"
+#include <fstream>
 
 Game* Game::instance = nullptr;
+
+bool getSwapInterval()
+{
+    std::ifstream file("Settings.txt");
+    if (!file.is_open())
+    {
+        std::cerr << "Failed to open Settings.txt\n";
+        return true; // default value if file can't be read
+    }
+
+    std::string line;
+    while (std::getline(file, line))
+    {
+        // Find the "swapInterval=" prefix
+        const std::string key = "swapInterval=";
+        size_t pos = line.find(key);
+        if (pos != std::string::npos)
+        {
+            std::string valueStr = line.substr(pos + key.length());
+            int value = std::stoi(valueStr);
+            return value != 0; // any non-zero value is treated as true
+        }
+    }
+
+    // If the key isn't found, return default value
+    return true;
+}
 
 Game::Game()
 {
@@ -8,7 +36,6 @@ Game::Game()
     window = nullptr;
 
 }
-
 void Game::framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
     glViewport(0, 0, width, height);
@@ -77,7 +104,8 @@ int Game::Start()
         std::cerr << "Failed to initialize GLEW\n";
         return -1;
     }
-    glfwSwapInterval(1);
+
+    glfwSwapInterval(getSwapInterval());
 
     glEnable(GL_DEPTH_TEST);
 

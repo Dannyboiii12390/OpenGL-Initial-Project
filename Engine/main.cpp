@@ -3,6 +3,7 @@
 #include "Game.h"
 #include <GLFW/glfw3.h>
 
+
 float getDeltaTime()
 {
     static float lastTime = static_cast<float>(glfwGetTime());

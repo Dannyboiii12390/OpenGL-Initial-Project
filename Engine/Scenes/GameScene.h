@@ -15,8 +15,6 @@ private:
 
     unsigned int VAO, VBO;
 
-    //float position[3] = { 0.0f, 0.0f, 0.0f };
-
 public:
     void Init() override;
     void Restart() override;

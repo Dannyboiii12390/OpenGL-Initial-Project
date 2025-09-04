@@ -81,4 +81,7 @@
   <ItemGroup>
     <None Include="Shaders\Basic.Shader" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="Settings.txt" />
+  </ItemGroup>
 </Project>
