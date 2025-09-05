@@ -9,11 +9,11 @@ class GameScene final : public Scene
 {
 
 private:
-    std::unique_ptr<Shader> shader;
+    std::shared_ptr<Shader> shader;
     
     Entity ent;
 
-    unsigned int VAO, VBO;
+    unsigned int VAO, VBO, IBO;
 
 public:
     void Init() override;

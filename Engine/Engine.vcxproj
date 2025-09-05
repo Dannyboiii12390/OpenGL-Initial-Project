@@ -150,6 +150,7 @@
     <ClCompile Include="Scenes\GameScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ECS\Components\Component2dPolygon.h" />
     <ClInclude Include="ECS\Components\ComponentPosition.h" />
     <ClInclude Include="ECS\Components\ComponentVelocity.h" />
     <ClInclude Include="ECS\Entity.h" />

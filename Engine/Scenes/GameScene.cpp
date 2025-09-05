@@ -1,32 +1,28 @@
 
 #include "GameScene.h"
 #include "glm.hpp"
+#include "../ECS/Components/Component2dPolygon.h"
 
 void GameScene::Init()
 {
-    // Simple triangle (1 face of cube)
+
+    shader = std::make_shared<Shader>("Shaders/Basic.Shader");
+
     float vertices[] = {
         -0.5f, -0.5f, -0.5f,
          0.5f, -0.5f, -0.5f,
          0.5f,  0.5f, -0.5f,
-         0.5f,  0.5f, -0.5f,
-        -0.5f,  0.5f, -0.5f,
-        -0.5f, -0.5f, -0.5f,
+        -0.5f,  0.5f, -0.5f
+    };
+    unsigned int indices[] = {
+    0, 1, 2,
+    2, 3, 0
     };
 
-    // Add a ComponentPosition to the entity with initial position (0,0,0)
     ent.AddComponent<ComponentPosition>(0.0f, 0.0f, 0.0f);
     ent.AddComponent<ComponentVelocity>(0.5f, 0.0f, 0.0f);
+    ent.AddComponent<Component2dPolygon>(vertices, 12, indices, 6, shader);
 
-    glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &VBO);
-    glBindVertexArray(VAO);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
-    glEnableVertexAttribArray(0);
-
-    shader = std::make_unique<Shader>("Shaders/Basic.Shader");
 }
 void GameScene::Restart()
 {
@@ -39,14 +35,6 @@ void GameScene::Restart()
         -0.5f,  0.5f, -0.5f,
         -0.5f, -0.5f, -0.5f,
     };
-
-    glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &VBO);
-    glBindVertexArray(VAO);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
-    glEnableVertexAttribArray(0);
 }
 void GameScene::Update(const float deltaTime, GLFWwindow* window, const int w, const int h)
 {
@@ -59,7 +47,7 @@ void GameScene::Update(const float deltaTime, GLFWwindow* window, const int w, c
     glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom),
         (float)w / (float)h, 0.1f, 100.0f);
 
-    //so the square moves
+
     float color[] = { 0.0f, 0.2f, 0.9f };
 
     float* position = ent.GetComponent<ComponentPosition>("Position")->getPosition();
@@ -74,14 +62,12 @@ void GameScene::Update(const float deltaTime, GLFWwindow* window, const int w, c
     shader->AddUniform4f("u_Color", color);
     shader->AddUniform3f("position", position);
 
-    glBindVertexArray(VAO);
-    glDrawArrays(GL_TRIANGLES, 0, 6);
+    ent.GetComponent<Component2dPolygon>("2d Polygon")->draw();
 
     glfwSwapBuffers(window);
     glfwPollEvents();
 }
 void GameScene::Shutdown()
 {
-    glDeleteVertexArrays(1, &VAO);
-    glDeleteBuffers(1, &VBO);
+    ent.GetComponent<Component2dPolygon>("2d Polygon")->Delete();
 }
