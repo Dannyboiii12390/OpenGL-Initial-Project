@@ -40,7 +40,10 @@ Shader::Shader(const std::string& filePath)
 
     //Log("Vertex Shader: \n" << s.VertexSource);
     //Log("Fragment Shader: \n" << s.FragmentSource);
-    ID = Create(ss[0].str(), ss[1].str());
+    FilePath = filePath;
+    VertexSource = ss[0].str();
+    FragmentSource = ss[1].str();
+    ID = Create(VertexSource, FragmentSource);
 }
 Shader::~Shader()
 {

@@ -10,10 +10,7 @@ class GameScene final : public Scene
 
 private:
     std::shared_ptr<Shader> shader;
-    
     Entity ent;
-
-    unsigned int VAO, VBO, IBO;
 
 public:
     void Init() override;

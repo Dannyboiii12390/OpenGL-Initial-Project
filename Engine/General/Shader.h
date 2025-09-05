@@ -14,9 +14,9 @@ class Shader final
 {
 private:
 
-    const std::string VertexSource;
-    const std::string FragmentSource;
-    const std::string FilePath;
+    std::string VertexSource;
+    std::string FragmentSource;
+    std::string FilePath;
     unsigned int ID;
 
     const int Compile(const unsigned int type, const std::string& source) const;
@@ -26,7 +26,6 @@ private:
 public:
 
     Shader(const std::string& filePath);
-    Shader();
     ~Shader();
     void Use() const;
     void Unuse() const;
