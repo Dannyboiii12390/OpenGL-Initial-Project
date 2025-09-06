@@ -42,6 +42,9 @@
     <ClCompile Include="ECS\Components\ComponentVelocity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ECS\Components\Component2dPolygon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="General\Camera.h">

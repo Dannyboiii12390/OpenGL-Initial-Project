@@ -9,7 +9,7 @@ class GameScene final : public Scene
 {
 
 private:
-    std::shared_ptr<Shader> shader;
+
     Entity ent;
 
 public:

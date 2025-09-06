@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ECS\Components\Component2dPolygon.cpp" />
     <ClCompile Include="ECS\Components\ComponentPosition.cpp" />
     <ClCompile Include="ECS\Components\ComponentVelocity.cpp" />
     <ClCompile Include="ECS\Entity.cpp" />
