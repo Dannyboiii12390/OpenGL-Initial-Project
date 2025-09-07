@@ -4,6 +4,8 @@
 #include "../ECS/Entity.h"
 #include "../ECS/Components/ComponentPosition.h"
 #include "../ECS/Components/ComponentVelocity.h"
+#include "../ECS/Systems/SystemVelocity.h"
+
 
 class GameScene final : public Scene
 {
@@ -11,6 +13,7 @@ class GameScene final : public Scene
 private:
 
     Entity ent;
+    SystemVelocity sysVel;
 
 public:
     void Init() override;

@@ -1,5 +1,13 @@
 #include "Entity.h"
 
+
+int Entity::staticIDs = 0;
+
+Entity::Entity()
+{
+    ID = staticIDs;
+    staticIDs++;
+}
 const int Entity::GetIndex(const std::string& name)
 {
     for (unsigned int i = 0; i < components.size(); ++i)
@@ -17,5 +25,9 @@ void Entity::RemoveComponent(const int index)
     {
         components.erase(components.begin() + index);
     }
+}
+const int Entity::getID() const
+{
+    return ID;
 }
 

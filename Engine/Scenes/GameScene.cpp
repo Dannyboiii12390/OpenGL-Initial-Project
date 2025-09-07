@@ -21,6 +21,8 @@ void GameScene::Init()
     ent.AddComponent<ComponentVelocity>(0.5f, 0.0f, 0.0f);
     ent.AddComponent<Component2dPolygon>(vertices, 12, indices, 6, std::make_shared<Shader>("Shaders/Basic.Shader"));
 
+    sysVel.AddEntity(&ent);
+
 }
 void GameScene::Restart()
 {
@@ -38,19 +40,14 @@ void GameScene::Update(const float deltaTime, GLFWwindow* window, const int w, c
 
     float color[] = { 0.0f, 0.2f, 0.9f };
 
-    float* position = ent.GetComponent<ComponentPosition>("Position")->getPosition();
-    float* velocity = ent.GetComponent<ComponentVelocity>("Velocity")->getVelocity();
-
-    position[0] += velocity[0] * deltaTime;
-    position[1] += velocity[1] * deltaTime;
-    position[2] += velocity[2] * deltaTime;
+    sysVel.Update(deltaTime);
 
 
     std::shared_ptr<Shader> shader = ent.GetComponent<Component2dPolygon>("2d Polygon")->getShader();
     shader->AddUniformMat4("view", &view[0][0]);
     shader->AddUniformMat4("projection", &projection[0][0]);
     shader->AddUniform4f("u_Color", color);
-    shader->AddUniform3f("position", position);
+    shader->AddUniform3f("position", ent.GetComponent<ComponentPosition>("Position")->getPosition());
 
     ent.GetComponent<Component2dPolygon>("2d Polygon")->draw();
 

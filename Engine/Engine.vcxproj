@@ -143,6 +143,8 @@
     <ClCompile Include="ECS\Components\ComponentPosition.cpp" />
     <ClCompile Include="ECS\Components\ComponentVelocity.cpp" />
     <ClCompile Include="ECS\Entity.cpp" />
+    <ClCompile Include="ECS\Systems\ISystem.cpp" />
+    <ClCompile Include="ECS\Systems\SystemVelocity.cpp" />
     <ClCompile Include="General\Camera.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
@@ -156,6 +158,8 @@
     <ClInclude Include="ECS\Components\ComponentVelocity.h" />
     <ClInclude Include="ECS\Entity.h" />
     <ClInclude Include="ECS\Components\IComponent.h" />
+    <ClInclude Include="ECS\Systems\ISystem.h" />
+    <ClInclude Include="ECS\Systems\SystemVelocity.h" />
     <ClInclude Include="General\Camera.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="General\Macros.h" />
