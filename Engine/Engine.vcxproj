@@ -142,6 +142,7 @@
     <ClCompile Include="ECS\Components\Component2dPolygon.cpp" />
     <ClCompile Include="ECS\Components\ComponentCircle.cpp" />
     <ClCompile Include="ECS\Components\ComponentPosition.cpp" />
+    <ClCompile Include="ECS\Components\ComponentSphere.cpp" />
     <ClCompile Include="ECS\Components\ComponentVelocity.cpp" />
     <ClCompile Include="ECS\Entity.cpp" />
     <ClCompile Include="ECS\Systems\ISystem.cpp" />
@@ -157,6 +158,7 @@
     <ClInclude Include="ECS\Components\Component2dPolygon.h" />
     <ClInclude Include="ECS\Components\ComponentCircle.h" />
     <ClInclude Include="ECS\Components\ComponentPosition.h" />
+    <ClInclude Include="ECS\Components\ComponentSphere.h" />
     <ClInclude Include="ECS\Components\ComponentVelocity.h" />
     <ClInclude Include="ECS\Entity.h" />
     <ClInclude Include="ECS\Components\IComponent.h" />

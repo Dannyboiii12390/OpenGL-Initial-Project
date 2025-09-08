@@ -1,9 +1,9 @@
 #include "ComponentCircle.h"
 #include <cmath>
-#define PI 3.1415926535
+#include "ComponentSphere.h"
 
 
-ComponentCircle::ComponentCircle(std::shared_ptr<Shader> pShader, float radius, int segments) : m_radius(radius), m_segments(segments), shader(pShader), IComponent("Circle")
+ComponentCircle::ComponentCircle(std::shared_ptr<Shader> pShader, float pRadius, int pSegments) : radius(pRadius), segments(pSegments), shader(pShader), IComponent("Circle")
 {
     generateCircleData();
 
@@ -24,14 +24,12 @@ ComponentCircle::ComponentCircle(std::shared_ptr<Shader> pShader, float radius, 
 
     glBindVertexArray(0);
 }
-
 ComponentCircle::~ComponentCircle()
 {
     glDeleteBuffers(1, &IBO);
     glDeleteBuffers(1, &VBO);
     glDeleteVertexArrays(1, &VAO);
 }
-
 void ComponentCircle::generateCircleData()
 {
     vertices.clear();
@@ -39,26 +37,25 @@ void ComponentCircle::generateCircleData()
 
     vertices.push_back(glm::vec2(0.0f, 0.0f)); // center vertex
 
-    float angleStep = 2.0f * PI / m_segments;
+    float angleStep = 2.0f * f_pi / segments;
 
     // Create vertices around the circle
-    for (int i = 0; i <= m_segments; ++i)
+    for (int i = 0; i <= segments; ++i)
     {
         float angle = i * angleStep;
-        float x = m_radius * cosf(angle);
-        float y = m_radius * sinf(angle);
+        float x = radius * cosf(angle);
+        float y = radius * sinf(angle);
         vertices.push_back(glm::vec2(x, y));
     }
 
     // Create indices for triangles
-    for (int i = 1; i <= m_segments; ++i)
+    for (int i = 1; i <= segments; ++i)
     {
         indices.push_back(0);
         indices.push_back(i);
         indices.push_back(i + 1);
     }
 }
-
 void ComponentCircle::draw() const
 {
     glBindVertexArray(VAO);

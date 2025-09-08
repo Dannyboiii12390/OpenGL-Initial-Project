@@ -107,6 +107,7 @@ int Game::Start()
     glfwSwapInterval(getSwapInterval());
 
     glEnable(GL_DEPTH_TEST);
+    glDisable(GL_BLEND);
 
     sceneManager.addScene(std::make_unique<GameScene>());
     camera = sceneManager.getCurrentCamera();

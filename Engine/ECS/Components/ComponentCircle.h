@@ -4,7 +4,6 @@
 #include <vector>
 #include <string>
 #include "IComponent.h"
-#include "../../General/Shader.h"
 
 class ComponentCircle : public IComponent
 {
@@ -21,8 +20,8 @@ private:
 
     std::shared_ptr<Shader> shader;
 
-    float m_radius;
-    int m_segments;
+    float radius;
+    int segments;
 
     unsigned int VAO, VBO, IBO;
     std::vector<glm::vec2> vertices;
