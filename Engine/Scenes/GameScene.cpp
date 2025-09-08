@@ -2,6 +2,7 @@
 #include "GameScene.h"
 #include "glm.hpp"
 #include "../ECS/Components/Component2dPolygon.h"
+#include "../ECS/Components/ComponentCircle.h"
 
 void GameScene::Init()
 {
@@ -20,6 +21,8 @@ void GameScene::Init()
     ent.AddComponent<ComponentPosition>(0.0f, 0.0f, 0.0f);
     ent.AddComponent<ComponentVelocity>(0.5f, 0.0f, 0.0f);
     ent.AddComponent<Component2dPolygon>(vertices, 12, indices, 6, std::make_shared<Shader>("Shaders/Basic.Shader"));
+    ent.AddComponent<ComponentCircle>(std::make_shared<Shader>("Shaders/Basic.Shader"));
+    
 
     sysVel.AddEntity(&ent);
 
@@ -44,12 +47,21 @@ void GameScene::Update(const float deltaTime, GLFWwindow* window, const int w, c
 
 
     std::shared_ptr<Shader> shader = ent.GetComponent<Component2dPolygon>("2d Polygon")->getShader();
+    shader->Use();
+    shader->AddUniformMat4("view", &view[0][0]);
+    shader->AddUniformMat4("projection", &projection[0][0]);
+    shader->AddUniform4f("u_Color", color);
+    shader->AddUniform3f("position", ent.GetComponent<ComponentPosition>("Position")->getPosition());
+
+    shader = ent.GetComponent<ComponentCircle>("Circle")->getShader();
+    shader->Use();
     shader->AddUniformMat4("view", &view[0][0]);
     shader->AddUniformMat4("projection", &projection[0][0]);
     shader->AddUniform4f("u_Color", color);
     shader->AddUniform3f("position", ent.GetComponent<ComponentPosition>("Position")->getPosition());
 
     ent.GetComponent<Component2dPolygon>("2d Polygon")->draw();
+    ent.GetComponent<ComponentCircle>("Circle")->draw();
 
     glfwSwapBuffers(window);
     glfwPollEvents();

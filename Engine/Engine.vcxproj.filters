@@ -51,6 +51,9 @@
     <ClCompile Include="ECS\Systems\ISystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ECS\Components\ComponentCircle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="General\Camera.h">
@@ -93,6 +96,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ECS\Systems\SystemVelocity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Components\ComponentCircle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

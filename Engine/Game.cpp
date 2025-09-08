@@ -34,7 +34,6 @@ Game::Game()
 {
     instance = this;
     window = nullptr;
-
 }
 void Game::framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
@@ -119,6 +118,8 @@ void Game::Run(float pDeltaTime)
     processInput(window);
     deltaTime = pDeltaTime;
 
+    fps.update(deltaTime);
+
     sceneManager.update(deltaTime, window, SCR_WIDTH, SCR_HEIGHT); 
     if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS)
     {
@@ -134,5 +135,6 @@ void Game::Run(float pDeltaTime)
 void Game::Cleanup()
 {
     sceneManager.shutdownAll();
+    fps.close();
     glfwTerminate();
 }

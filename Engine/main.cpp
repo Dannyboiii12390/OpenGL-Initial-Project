@@ -14,7 +14,7 @@ float getDeltaTime()
 }
 int main()
 {
-    Game game = Game();
+    Game game;
     if (game.Start() != 0) { return -1; }
 
     while (!glfwWindowShouldClose(game.GetWindow()))
