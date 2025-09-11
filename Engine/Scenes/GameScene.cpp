@@ -20,7 +20,7 @@ void drawShape(std::shared_ptr<T> shape, const glm::mat4& view, const glm::mat4&
     //correct drawing pattern
     //shader->Use();                        // Bind shader
     //shader->AddUniformX(...);             // Set all needed uniforms
-    //DrawMeshOrShape();
+    //DrawMeshOrShape();                    // Draw
 }
 
 void GameScene::Init()

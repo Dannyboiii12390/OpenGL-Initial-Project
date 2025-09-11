@@ -1,1 +1,1 @@
-swapInterval=1
+swapInterval=0
