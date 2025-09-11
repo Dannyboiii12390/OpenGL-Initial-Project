@@ -139,7 +139,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ECS\Components\Component3dPolygon.cpp" />
     <ClCompile Include="ECS\Components\Component2dPolygon.cpp" />
     <ClCompile Include="ECS\Components\ComponentCircle.cpp" />
     <ClCompile Include="ECS\Components\ComponentPosition.cpp" />
@@ -156,7 +155,6 @@
     <ClCompile Include="Scenes\GameScene.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ECS\Components\Component3dPolygon.h" />
     <ClInclude Include="ECS\Components\Component2dPolygon.h" />
     <ClInclude Include="ECS\Components\ComponentCircle.h" />
     <ClInclude Include="ECS\Components\ComponentPosition.h" />

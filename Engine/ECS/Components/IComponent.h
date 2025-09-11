@@ -5,9 +5,8 @@
 #define PI 3.1415926535
 #define f_pi static_cast<float>(PI)
 /*
-component sphere
+component audio - next
 component 3d polygon
-component audio
 component geometry - loading objs and textures
 component ai - various behaviours
 */
@@ -52,8 +51,8 @@ int main() {
 		std::cout << "Mask includes Circle\n";
 	}
 
-	if (!(mask & ComponentType::Sphere)) {
-		std::cout << "Mask does NOT include Sphere\n";
+	if (hasFlag(mask, ComponentType::Circle | ComponentType::Position)) {
+		std::cout << "Mask includes Circle and Position\n";
 	}
 }
 */
@@ -85,7 +84,9 @@ class IComponent
 		case ComponentType::Velocity:  return "Velocity";
 		case ComponentType::Sphere:    return "Sphere";
 		case ComponentType::Circle:    return "Circle";
-		case ComponentType::Polygon2d: return "Polygon2D";
+		case ComponentType::Polygon2d: return "2d Polygon";
+		case ComponentType::Polygon3d: return "3d Polygon";
+		case ComponentType::None:	   return "None";
 		default:                       throw std::invalid_argument("Unknown ComponentType: " + name);;
 		}
 	}

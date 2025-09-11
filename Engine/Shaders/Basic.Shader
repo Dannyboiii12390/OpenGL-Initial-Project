@@ -2,13 +2,14 @@
 #version 330 core
 layout (location = 0) in vec3 aPos;
 
-uniform vec3 position;       // Object/world position offset
-uniform mat4 view;           // View matrix (camera)
-uniform mat4 projection;     // Projection matrix (perspective/ortho)
+uniform vec3 position;       //Object/world position offset
+uniform mat4 view;           //View matrix (camera)
+uniform mat4 projection;     //Projection matrix (perspective/ortho)
+uniform mat4 model;
 
 void main() 
 {
-    gl_Position = projection * view * vec4(aPos + position, 1.0);
+    gl_Position = projection * view * model * vec4(aPos + position, 1.0);
 }
 
 #shader fragment

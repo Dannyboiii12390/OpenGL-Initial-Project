@@ -4,8 +4,9 @@
 #include "../ECS/Components/Component2dPolygon.h"
 #include "../ECS/Components/ComponentCircle.h"
 #include "../ECS/Components/ComponentSphere.h"
+
 template <typename T>
-void drawShape(std::shared_ptr<T> shape, const float* position, const glm::mat4& view, const glm::mat4& projection, const float* color)
+void drawShape(std::shared_ptr<T> shape, const float* position, const glm::mat4& view, const glm::mat4& projection, const glm::mat4& model,const float* color)
 {
     std::shared_ptr<Shader> shader = shape->getShader();
     shader->Use();
@@ -13,6 +14,7 @@ void drawShape(std::shared_ptr<T> shape, const float* position, const glm::mat4&
     shader->AddUniformMat4("projection", &projection[0][0]);
     shader->AddUniform4f("u_Color", color);
     shader->AddUniform3f("position", position);
+    shader->AddUniformMat4("model", &model[0][0]);
     shape->draw();
 
     //correct drawing pattern
@@ -49,24 +51,27 @@ void GameScene::Restart()
 }
 void GameScene::Update(const float deltaTime, GLFWwindow* window, const int w, const int h)
 {
+    glEnable(GL_DEPTH_TEST);    
     glClearColor(0.1f, 0.1f, 0.15f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+    glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -2.0f));
     glm::mat4 view = camera.GetViewMatrix();
-    glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom),
-        (float)w / (float)h, 0.1f, 100.0f);
+    glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)w / h, 0.1f, 100.0f);
     
     
     float colorR[] = { 1.0f, 0.2f, 0.0f, 1.0f };
     float colorG[] = { 0.0f, 1.0f, 0.2f, 1.0f };
     float colorB[] = { 0.0f, 0.2f, 0.9f, 1.0f };
+    float colorY[] = { 1.0f, 1.0f, 0.0f, 1.0f };
 
     sysVel.Update(deltaTime);
 
     const float* position = ent.GetComponent<ComponentPosition>(ComponentType::Position)->getPosition();
-    drawShape(ent.GetComponent<Component2dPolygon>(ComponentType::Polygon2d), position, view, projection, colorR);
-    drawShape(ent.GetComponent<ComponentCircle>(ComponentType::Circle), position, view, projection, colorG);
-    drawShape(ent.GetComponent<ComponentSphere>(ComponentType::Sphere), position, view, projection, colorB);
+    drawShape(ent.GetComponent<Component2dPolygon>(ComponentType::Polygon2d), position, view, projection, model, colorR);
+    drawShape(ent.GetComponent<ComponentCircle>(ComponentType::Circle), position, view, projection, model, colorG);
+    drawShape(ent.GetComponent<ComponentSphere>(ComponentType::Sphere), position, view, projection, model, colorB);
+
 
     glfwSwapBuffers(window);
     glfwPollEvents();
