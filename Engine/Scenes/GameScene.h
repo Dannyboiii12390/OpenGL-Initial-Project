@@ -13,6 +13,7 @@ class GameScene final : public Scene
 private:
 
     Entity ent;
+    Entity ent2;
     SystemVelocity sysVel;
 
     unsigned int VBO, VAO, EBO;

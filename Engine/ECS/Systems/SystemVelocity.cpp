@@ -6,8 +6,10 @@ void SystemVelocity::Update(float deltaTime)
 {
 	for (auto it = entities.begin(); it != entities.end(); ++it)
 	{
-		if (hasFlag((*it)->getType(), ComponentType::Position | ComponentType::Velocity))
+		bool hasComponents = hasFlag((*it)->getType(), ComponentType::Position | ComponentType::Velocity);
+		if (hasComponents)
 		{
+			
 			float* position = (*it)->GetComponent<ComponentPosition>(ComponentType::Position)->getPosition();
 			float* velocity = (*it)->GetComponent<ComponentVelocity>(ComponentType::Velocity)->getVelocity();
 
