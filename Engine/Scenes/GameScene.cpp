@@ -4,16 +4,16 @@
 #include "../ECS/Components/Component2dPolygon.h"
 #include "../ECS/Components/ComponentCircle.h"
 #include "../ECS/Components/ComponentSphere.h"
+#include "../ECS/Components/Component3dPolygon.h"
 
 template <typename T>
-void drawShape(std::shared_ptr<T> shape, const float* position, const glm::mat4& view, const glm::mat4& projection, const glm::mat4& model,const float* color)
+void drawShape(std::shared_ptr<T> shape, const glm::mat4& view, const glm::mat4& projection, const glm::mat4& model,const float* color)
 {
     std::shared_ptr<Shader> shader = shape->getShader();
     shader->Use();
     shader->AddUniformMat4("view", &view[0][0]);
     shader->AddUniformMat4("projection", &projection[0][0]);
     shader->AddUniform4f("u_Color", color);
-    shader->AddUniform3f("position", position);
     shader->AddUniformMat4("model", &model[0][0]);
     shape->draw();
 
@@ -35,12 +35,43 @@ void GameScene::Init()
     0, 1, 2,
     2, 3, 0
     };
+    float vertices3d[] = {
+    -0.5f, -0.5f, -0.5f, // 0
+     0.5f, -0.5f, -0.5f, // 1
+     0.5f,  0.5f, -0.5f, // 2
+    -0.5f,  0.5f, -0.5f, // 3
+    -0.5f, -0.5f,  0.5f, // 4
+     0.5f, -0.5f,  0.5f, // 5
+     0.5f,  0.5f,  0.5f, // 6
+    -0.5f,  0.5f,  0.5f  // 7
+    };
+    unsigned int indices3d[] = {
+        // Back face
+        0, 1, 2,
+        2, 3, 0,
+        // Front face
+        4, 5, 6,
+        6, 7, 4,
+        // Left face
+        0, 3, 7,
+        7, 4, 0,
+        // Right face
+        1, 5, 6,
+        6, 2, 1,
+        // Top face
+        3, 2, 6,
+        6, 7, 3,
+        // Bottom face
+        0, 1, 5,
+        5, 4, 0
+    };
 
     ent.AddComponent<ComponentPosition>(0.0f, 0.0f, 0.0f);
     ent.AddComponent<ComponentVelocity>(0.5f, 0.0f, 0.0f);
     ent.AddComponent<Component2dPolygon>(vertices, 12, indices, 6, std::make_shared<Shader>("Shaders/Basic.Shader"));
     ent.AddComponent<ComponentCircle>(std::make_shared<Shader>("Shaders/Basic.Shader"));
     ent.AddComponent<ComponentSphere>(std::make_shared<Shader>("Shaders/Basic.Shader"), 0.5f);
+    ent.AddComponent<Component3dPolygon>(vertices3d, 24, indices3d, 36, std::make_shared<Shader>("Shaders/Basic.Shader"));
 
     sysVel.AddEntity(&ent);
 
@@ -55,23 +86,23 @@ void GameScene::Update(const float deltaTime, GLFWwindow* window, const int w, c
     glClearColor(0.1f, 0.1f, 0.15f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -2.0f));
+    const float* p = ent.GetComponent<ComponentPosition>(ComponentType::Position)->getPosition();
+    glm::vec3 position(p[0], p[1], p[2]);
+    glm::mat4 model = glm::translate(glm::mat4(1.0f), position);
     glm::mat4 view = camera.GetViewMatrix();
     glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)w / h, 0.1f, 100.0f);
-    
-    
+
     float colorR[] = { 1.0f, 0.2f, 0.0f, 1.0f };
     float colorG[] = { 0.0f, 1.0f, 0.2f, 1.0f };
     float colorB[] = { 0.0f, 0.2f, 0.9f, 1.0f };
     float colorY[] = { 1.0f, 1.0f, 0.0f, 1.0f };
 
     sysVel.Update(deltaTime);
-
-    const float* position = ent.GetComponent<ComponentPosition>(ComponentType::Position)->getPosition();
-    drawShape(ent.GetComponent<Component2dPolygon>(ComponentType::Polygon2d), position, view, projection, model, colorR);
-    drawShape(ent.GetComponent<ComponentCircle>(ComponentType::Circle), position, view, projection, model, colorG);
-    drawShape(ent.GetComponent<ComponentSphere>(ComponentType::Sphere), position, view, projection, model, colorB);
-
+    const float pos[]{ 0.0f, 0.0f, 0.0f };
+    drawShape(ent.GetComponent<Component2dPolygon>(ComponentType::Polygon2d), view, projection, model, colorR);
+    drawShape(ent.GetComponent<ComponentCircle>(ComponentType::Circle), view, projection, model, colorG);
+    drawShape(ent.GetComponent<ComponentSphere>(ComponentType::Sphere), view, projection, model, colorB);
+    drawShape(ent.GetComponent<Component3dPolygon>(ComponentType::Polygon3d), view, projection, model, colorY);
 
     glfwSwapBuffers(window);
     glfwPollEvents();

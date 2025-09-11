@@ -15,6 +15,8 @@ private:
     Entity ent;
     SystemVelocity sysVel;
 
+    unsigned int VBO, VAO, EBO;
+
 
 public:
     void Init() override;
