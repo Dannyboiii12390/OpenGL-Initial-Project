@@ -4,7 +4,7 @@
 
 
 
-ComponentPosition::ComponentPosition(float x, float y, float z) : IComponent("Position")
+ComponentPosition::ComponentPosition(float x, float y, float z) : IComponent(ComponentType::Position)
 {
     setPosition(x, y, z);
 }

@@ -31,11 +31,28 @@ public:
         }
         return nullptr;
     }
+    template<typename T>
+    std::shared_ptr<T> GetComponent(const ComponentType& type)
+    {
+        for (const auto& component : components)
+        {
+            if (component->getType() == type)
+            {
+                return std::dynamic_pointer_cast<T>(component);
+            }
+        }
+        return nullptr;
+    }
     
     template<typename T>
     bool HasComponent(const std::string& name)
     {
         return GetComponent<T>(name) != nullptr;
+    }
+    template<typename T>
+    bool HasComponent(const ComponentType& type)
+    {
+        return GetComponent<T>(type) != nullptr;
     }
     
     template<typename T, typename... Args>
@@ -49,6 +66,8 @@ public:
     
     void RemoveComponent(const int index);
     const int GetIndex(const std::string& name);
+    const int GetIndex(const ComponentType& type) const;
+    const ComponentType getType() const;
     Entity();
     const int getID() const;
 };

@@ -1,6 +1,6 @@
 #include "ComponentVelocity.h"
 
-ComponentVelocity::ComponentVelocity(const float x, const float y, const float z) : IComponent("Velocity")
+ComponentVelocity::ComponentVelocity(const float x, const float y, const float z) : IComponent(ComponentType::Velocity)
 {
 	setVelocity(x, y, z);
 }

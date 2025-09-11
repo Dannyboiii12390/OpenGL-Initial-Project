@@ -3,7 +3,7 @@
 #include "ComponentSphere.h"
 
 
-ComponentCircle::ComponentCircle(std::shared_ptr<Shader> pShader, float pRadius, int pSegments) : radius(pRadius), segments(pSegments), shader(pShader), IComponent("Circle")
+ComponentCircle::ComponentCircle(std::shared_ptr<Shader> pShader, float pRadius, int pSegments) : radius(pRadius), segments(pSegments), shader(pShader), IComponent(ComponentType::Circle)
 {
     generateCircleData();
 

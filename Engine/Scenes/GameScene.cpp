@@ -4,10 +4,25 @@
 #include "../ECS/Components/Component2dPolygon.h"
 #include "../ECS/Components/ComponentCircle.h"
 #include "../ECS/Components/ComponentSphere.h"
+template <typename T>
+void drawShape(std::shared_ptr<T> shape, const float* position, const glm::mat4& view, const glm::mat4& projection, const float* color)
+{
+    std::shared_ptr<Shader> shader = shape->getShader();
+    shader->Use();
+    shader->AddUniformMat4("view", &view[0][0]);
+    shader->AddUniformMat4("projection", &projection[0][0]);
+    shader->AddUniform4f("u_Color", color);
+    shader->AddUniform3f("position", position);
+    shape->draw();
+
+    //correct drawing pattern
+    //shader->Use();                        // Bind shader
+    //shader->AddUniformX(...);             // Set all needed uniforms
+    //DrawMeshOrShape();
+}
 
 void GameScene::Init()
 {
-
     float vertices[] = {
         -0.5f, -0.5f, -0.5f,
          0.5f, -0.5f, -0.5f,
@@ -48,40 +63,15 @@ void GameScene::Update(const float deltaTime, GLFWwindow* window, const int w, c
 
     sysVel.Update(deltaTime);
 
-    //correct drawing pattern
-    //shader->Use();                        // Bind shader
-    //shader->AddUniformX(...);             // Set all needed uniforms
-    //DrawMeshOrShape();
-
-    std::shared_ptr<Shader> shader = ent.GetComponent<Component2dPolygon>("2d Polygon")->getShader();
-    shader->Use();
-    shader->AddUniformMat4("view", &view[0][0]);
-    shader->AddUniformMat4("projection", &projection[0][0]);
-    shader->AddUniform4f("u_Color", colorR);
-    shader->AddUniform3f("position", ent.GetComponent<ComponentPosition>("Position")->getPosition());
-    ent.GetComponent<Component2dPolygon>("2d Polygon")->draw();
-
-    shader = ent.GetComponent<ComponentCircle>("Circle")->getShader();
-    shader->Use();
-    shader->AddUniformMat4("view", &view[0][0]);
-    shader->AddUniformMat4("projection", &projection[0][0]);
-    shader->AddUniform4f("u_Color", colorB);
-    shader->AddUniform3f("position", ent.GetComponent<ComponentPosition>("Position")->getPosition());
-    ent.GetComponent<ComponentCircle>("Circle")->draw();
-
-    shader = ent.GetComponent<ComponentSphere>("Sphere")->getShader();
-    shader->Use();
-    shader->AddUniformMat4("view", &view[0][0]);
-    shader->AddUniformMat4("projection", &projection[0][0]);
-    shader->AddUniform4f("u_Color", colorG);
-    shader->AddUniform3f("position", ent.GetComponent<ComponentPosition>("Position")->getPosition());
-    ent.GetComponent<ComponentSphere>("Sphere")->draw();
-
+    const float* position = ent.GetComponent<ComponentPosition>(ComponentType::Position)->getPosition();
+    drawShape(ent.GetComponent<Component2dPolygon>(ComponentType::Polygon2d), position, view, projection, colorR);
+    drawShape(ent.GetComponent<ComponentCircle>(ComponentType::Circle), position, view, projection, colorG);
+    drawShape(ent.GetComponent<ComponentSphere>(ComponentType::Sphere), position, view, projection, colorB);
 
     glfwSwapBuffers(window);
     glfwPollEvents();
 }
 void GameScene::Shutdown()
 {
-    ent.GetComponent<Component2dPolygon>("2d Polygon")->Delete();
+    ent.GetComponent<Component2dPolygon>(ComponentType::Polygon2d)->Delete();
 }

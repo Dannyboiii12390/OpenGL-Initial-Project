@@ -1,7 +1,7 @@
 #include "ComponentSphere.h"
 
 ComponentSphere::ComponentSphere(std::shared_ptr<Shader> pShader, float pRadius, int pSectorCount, int pStackCount) 
-    : radius(pRadius), sectorCount(pSectorCount), stackCount(pStackCount),shader(pShader), IComponent("Sphere")
+    : radius(pRadius), sectorCount(pSectorCount), stackCount(pStackCount),shader(pShader), IComponent(ComponentType::Sphere)
 {
     generateSphere();
     //shader = pShader;

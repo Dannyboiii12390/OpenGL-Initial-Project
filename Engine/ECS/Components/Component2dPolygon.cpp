@@ -1,7 +1,7 @@
 #include "Component2dPolygon.h"
 
 
-Component2dPolygon::Component2dPolygon(const float* vertices, const unsigned int verticesCount, const unsigned int* indices, const unsigned int indicesCount, const std::shared_ptr<Shader> pShader) : IComponent("2d Polygon")
+Component2dPolygon::Component2dPolygon(const float* vertices, const unsigned int verticesCount, const unsigned int* indices, const unsigned int indicesCount, const std::shared_ptr<Shader> pShader) : IComponent(ComponentType::Polygon2d)
 {
     shader = pShader;
     glGenVertexArrays(1, &VAO);
