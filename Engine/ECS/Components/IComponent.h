@@ -40,7 +40,7 @@ inline ComponentType& operator|=(ComponentType& a, ComponentType b)
 }
 inline bool hasFlag(ComponentType mask, ComponentType flag)
 {
-	return static_cast<long long>(mask & flag) != 0;
+	return (mask & flag) == flag;
 }
 
 /* example usage

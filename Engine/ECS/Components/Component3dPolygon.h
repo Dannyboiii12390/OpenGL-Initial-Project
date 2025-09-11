@@ -41,11 +41,6 @@ public:
     {
         return shader;
     }
-
-        
-
-
-    // Inherited via IComponent
     const std::string& getName() const override;
 
 };

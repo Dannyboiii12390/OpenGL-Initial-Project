@@ -16,7 +16,6 @@ private:
     Entity ent2;
     SystemVelocity sysVel;
 
-    unsigned int VBO, VAO, EBO;
 
 
 public:
